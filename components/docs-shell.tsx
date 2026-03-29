@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 
 import { DocsSidebar } from "@/components/docs-sidebar";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { getDocGroups, type TocItem } from "@/lib/docs";
 
 export function DocsShell({
@@ -45,6 +46,7 @@ export function DocsShell({
             >
               npm
             </a>
+            <ThemeToggle />
           </nav>
         </div>
       </header>

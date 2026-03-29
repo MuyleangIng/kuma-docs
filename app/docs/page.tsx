@@ -20,6 +20,7 @@ export default function DocsIndexPage() {
         <div className="docs-pill-row">
           <span className="docs-pill">8 framework targets</span>
           <span className="docs-pill">7 npm entrypoints</span>
+          <span className="docs-pill">Spring + Python custom guides</span>
           <span className="docs-pill">Live session verification complete</span>
         </div>
       </div>
@@ -70,6 +71,11 @@ export default function DocsIndexPage() {
             <span className="docs-detail-label">Backend-first</span>
             <strong className="docs-detail-value">Express or NestJS</strong>
             <p className="docs-detail-copy">Use the server adapter directly when you want to plug KHQR into an existing Node backend.</p>
+          </div>
+          <div className="docs-detail-card">
+            <span className="docs-detail-label">Custom ecosystems</span>
+            <strong className="docs-detail-value">Spring Boot or Python</strong>
+            <p className="docs-detail-copy">Use the setup and signing reference guides when your secure backend is outside the npm runtime family.</p>
           </div>
         </div>
       </section>

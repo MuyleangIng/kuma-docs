@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { CopyButton } from "@/components/copy-button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
             <Link className="site-link site-link-primary" href="/docs">
               Open Docs
             </Link>
+            <ThemeToggle />
           </nav>
         </div>
       </header>
@@ -38,6 +40,8 @@ export default function HomePage() {
               <span className="docs-pill">Express</span>
               <span className="docs-pill">NestJS</span>
               <span className="docs-pill">Angular</span>
+              <span className="docs-pill">Spring</span>
+              <span className="docs-pill">Python</span>
             </div>
           </div>
 

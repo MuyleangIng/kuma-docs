@@ -11,7 +11,7 @@ import { CodeBlock } from "@/components/code-block";
 const DOCS_DIR = path.join(process.cwd(), "content", "docs");
 const GITHUB_BLOB_BASE = "https://github.com/KhmerStack/koma-khqr/blob/main/";
 
-export type DocGroupId = "overview" | "frameworks" | "reference";
+export type DocGroupId = "overview" | "frameworks" | "ecosystems" | "reference";
 
 export interface DocEntry {
   slug: string;
@@ -82,6 +82,11 @@ export const DOC_GROUPS = [
     description: "Framework-by-framework setup guides and runnable example references.",
   },
   {
+    id: "ecosystems" as const,
+    title: "Custom Ecosystems",
+    description: "Non-Node server stacks that integrate with Koma through custom backend code.",
+  },
+  {
     id: "reference" as const,
     title: "Reference",
     description: "Provider rules, sandbox notes, and operational details.",
@@ -97,6 +102,16 @@ export const DOC_ENTRIES: DocEntry[] = [
     group: "overview",
     entrypoint: "Koma dashboard setup",
     runtime: "Merchant settings and integration credentials",
+    structure: `Koma Dashboard
+  /dashboard
+  /dashboard/integrations
+  /dashboard/merchant
+
+App Env
+  KOMA_API_URL
+  KOMA_MERCHANT_ID
+  KOMA_SECRET_KEY
+  KOMA_APP_URL`,
   },
   {
     slug: "framework-recipes",
@@ -289,6 +304,40 @@ public/
     pages/
       shop-page.component.ts
 server.mjs`,
+  },
+  {
+    slug: "spring",
+    fileName: "spring.md",
+    title: "Spring Boot",
+    description: "Use Spring Boot for server-to-server signing, checkout creation, and status polling.",
+    group: "ecosystems",
+    entrypoint: "Custom Java backend",
+    runtime: "Spring Boot server plus any frontend",
+    structure: `src/main/java/com/example/koma/
+  config/
+    KomaProperties.java
+  service/
+    KomaService.java
+  web/
+    KomaController.java
+src/main/resources/
+  application.properties`,
+  },
+  {
+    slug: "python",
+    fileName: "python.md",
+    title: "Python",
+    description: "Use Python for secure server-side signing and Koma API calls from FastAPI or Flask.",
+    group: "ecosystems",
+    entrypoint: "Custom Python backend",
+    runtime: "Python API server plus any frontend",
+    structure: `app/
+  main.py
+  settings.py
+  koma.py
+templates/
+  success.html
+  cancelled.html`,
   },
   {
     slug: "pi-integration",
