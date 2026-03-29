@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { CopyButton } from "@/components/copy-button";
+
 export default function HomePage() {
   return (
     <div className="site-shell">
@@ -49,7 +51,10 @@ export default function HomePage() {
             </div>
 
             <div className="docs-install">
-              <h2>Start browsing</h2>
+              <div className="docs-install-head">
+                <h2>Start browsing</h2>
+                <CopyButton label="Copy commands" text={`cd kuma-docs\nnpm install\nnpm run dev`} />
+              </div>
               <p>Jump into the finished framework documentation site.</p>
               <pre>{`cd kuma-docs\nnpm install\nnpm run dev`}</pre>
             </div>

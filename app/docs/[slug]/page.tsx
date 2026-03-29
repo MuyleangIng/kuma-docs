@@ -9,7 +9,9 @@ import {
   getDocGroup,
   getDocNeighbors,
   getParsedDoc,
+  renderCodeSnippet,
   renderMarkdownBlocks,
+  toGitHubBlobHref,
 } from "@/lib/docs";
 
 export async function generateStaticParams() {
@@ -72,7 +74,66 @@ export default async function DocPage({
 
         <h1 className="docs-page-title">{parsed.headline}</h1>
         <p className="docs-page-copy">{parsed.entry.description}</p>
+
+        <div className="docs-action-row">
+          {parsed.entry.examplePath ? (
+            <a
+              className="docs-action-button docs-action-primary"
+              href={toGitHubBlobHref(parsed.entry.examplePath)}
+              rel="noreferrer"
+              target="_blank"
+            >
+              Open runnable example
+            </a>
+          ) : null}
+          <a
+            className="docs-action-button"
+            href={`https://github.com/KhmerStack/koma-khqr/blob/main/docs/${parsed.entry.fileName}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            View guide source
+          </a>
+        </div>
       </div>
+
+      {parsed.entry.entrypoint || parsed.entry.runtime || parsed.entry.examplePath ? (
+        <section className="docs-detail-grid">
+          {parsed.entry.entrypoint ? (
+            <div className="docs-detail-card">
+              <span className="docs-detail-label">Entrypoint</span>
+              <strong className="docs-detail-value">{parsed.entry.entrypoint}</strong>
+              <p className="docs-detail-copy">Use this package surface for the main integration point.</p>
+            </div>
+          ) : null}
+
+          {parsed.entry.runtime ? (
+            <div className="docs-detail-card">
+              <span className="docs-detail-label">Runtime Shape</span>
+              <strong className="docs-detail-value">{parsed.entry.runtime}</strong>
+              <p className="docs-detail-copy">This is the server/client split the guide assumes.</p>
+            </div>
+          ) : null}
+
+          {parsed.entry.examplePath ? (
+            <div className="docs-detail-card">
+              <span className="docs-detail-label">Quick Test</span>
+              <strong className="docs-detail-value">Runnable example available</strong>
+              <p className="docs-detail-copy">Use the linked example repo path when you want the fastest working reference.</p>
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
+      {parsed.entry.structure ? (
+        <section className="docs-structure-section">
+          <div className="docs-section-head">
+            <p className="docs-section-label">Project Structure</p>
+            <h2>Typical file layout</h2>
+          </div>
+          {renderCodeSnippet(parsed.entry.structure, "text", `${slug}-structure`)}
+        </section>
+      ) : null}
 
       <article className="docs-article">
         {renderMarkdownBlocks(parsed.blocks, `docs/${parsed.entry.fileName}`)}

@@ -6,6 +6,8 @@ import type { ReactNode } from "react";
 
 import Link from "next/link";
 
+import { CodeBlock } from "@/components/code-block";
+
 const DOCS_DIR = path.join(process.cwd(), "content", "docs");
 const GITHUB_BLOB_BASE = "https://github.com/KhmerStack/koma-khqr/blob/main/";
 
@@ -17,6 +19,17 @@ export interface DocEntry {
   title: string;
   description: string;
   group: DocGroupId;
+  entrypoint?: string;
+  runtime?: string;
+  examplePath?: string;
+  structure?: string;
+}
+
+export interface DocGroup {
+  id: DocGroupId;
+  title: string;
+  description: string;
+  entries: DocEntry[];
 }
 
 export interface TocItem {
@@ -110,6 +123,18 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "Next.js TypeScript",
     description: "Use the first-class Next helpers with App Router and TypeScript.",
     group: "frameworks",
+    entrypoint: "koma-khqr/next",
+    runtime: "Next.js App Router with server route handlers",
+    examplePath: "examples/next-khqr-demo/README.md",
+    structure: `app/
+  page.tsx
+  api/
+    koma-checkout/route.ts
+    koma-qr/route.ts
+    koma-status/route.ts
+  payment/
+    success/page.tsx
+    cancelled/page.tsx`,
   },
   {
     slug: "next-javascript",
@@ -117,6 +142,18 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "Next.js JavaScript",
     description: "Use the same App Router flow in plain JavaScript.",
     group: "frameworks",
+    entrypoint: "koma-khqr/next",
+    runtime: "Next.js App Router with server route handlers",
+    examplePath: "examples/next-khqr-demo/README.md",
+    structure: `app/
+  page.js
+  api/
+    koma-checkout/route.js
+    koma-qr/route.js
+    koma-status/route.js
+  payment/
+    success/page.js
+    cancelled/page.js`,
   },
   {
     slug: "react",
@@ -124,6 +161,13 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "React",
     description: "Understand the React UI layer and the server runtime it still needs.",
     group: "frameworks",
+    entrypoint: "koma-khqr/react",
+    runtime: "React UI plus a separate server runtime",
+    examplePath: "examples/react/README.md",
+    structure: `src/
+  App.jsx
+  main.jsx
+server.mjs`,
   },
   {
     slug: "react-vite-typescript",
@@ -131,6 +175,13 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "React + Vite TypeScript",
     description: "Vite frontend plus Express backend with TypeScript-ready structure.",
     group: "frameworks",
+    entrypoint: "koma-khqr/react + koma-khqr/express",
+    runtime: "Vite frontend plus a small Node backend",
+    examplePath: "examples/react-vite-ts/README.md",
+    structure: `src/
+  App.tsx
+  main.tsx
+server.mjs`,
   },
   {
     slug: "react-vite-javascript",
@@ -138,6 +189,13 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "React + Vite JavaScript",
     description: "The same Vite pattern in plain JavaScript.",
     group: "frameworks",
+    entrypoint: "koma-khqr/react + koma-khqr/express",
+    runtime: "Vite frontend plus a small Node backend",
+    examplePath: "examples/react-vite-js/README.md",
+    structure: `src/
+  App.jsx
+  main.jsx
+server.mjs`,
   },
   {
     slug: "vue",
@@ -145,6 +203,13 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "Vue",
     description: "Use Vue with a small backend or move to Nuxt for a stronger full-stack fit.",
     group: "frameworks",
+    entrypoint: "koma-khqr/vue + server runtime",
+    runtime: "Vue frontend plus a small Node backend",
+    examplePath: "examples/vue-vite/README.md",
+    structure: `src/
+  App.vue
+  main.ts
+server.mjs`,
   },
   {
     slug: "nuxt",
@@ -152,6 +217,20 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "Nuxt",
     description: "Nuxt pages and server routes for a full-stack KHQR integration.",
     group: "frameworks",
+    entrypoint: "koma-khqr/server",
+    runtime: "Nuxt pages plus Nitro server routes",
+    examplePath: "examples/nuxt/README.md",
+    structure: `pages/
+  index.vue
+  payment/
+    success.vue
+    cancelled.vue
+server/
+  api/
+    koma-qr.post.ts
+    koma-status.post.ts
+  utils/
+    koma.ts`,
   },
   {
     slug: "express",
@@ -159,6 +238,13 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "Express",
     description: "Ready-made backend endpoints for client-only frontends.",
     group: "frameworks",
+    entrypoint: "koma-khqr/express",
+    runtime: "Standalone Node backend",
+    examplePath: "examples/express/README.md",
+    structure: `public/
+  app.js
+  styles.css
+server.mjs`,
   },
   {
     slug: "nest",
@@ -166,6 +252,18 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "NestJS",
     description: "Controller and service layering for a more structured Node backend.",
     group: "frameworks",
+    entrypoint: "koma-khqr/server",
+    runtime: "NestJS controllers and services",
+    examplePath: "examples/nest/README.md",
+    structure: `src/
+  main.ts
+  pages.controller.ts
+  koma/
+    koma.controller.ts
+    koma.service.ts
+public/
+  app.js
+  styles.css`,
   },
   {
     slug: "angular",
@@ -173,6 +271,15 @@ export const DOC_ENTRIES: DocEntry[] = [
     title: "Angular",
     description: "Angular frontend plus Express or Nest backend for secure signing.",
     group: "frameworks",
+    entrypoint: "koma-khqr/angular + server runtime",
+    runtime: "Angular SPA plus a secure backend",
+    examplePath: "examples/angular/README.md",
+    structure: `src/
+  app/
+    app.routes.ts
+    pages/
+      shop-page.component.ts
+server.mjs`,
   },
   {
     slug: "pi-integration",
@@ -281,7 +388,7 @@ const SHELL_COMMANDS = new Set([
   "yarn",
 ]);
 
-export function getDocGroups() {
+export function getDocGroups(): DocGroup[] {
   return DOC_GROUPS.map((group) => ({
     ...group,
     entries: DOC_ENTRIES.filter((entry) => entry.group === group.id),
@@ -290,6 +397,10 @@ export function getDocGroups() {
 
 export function getDocGroup(groupId: DocGroupId) {
   return DOC_GROUPS.find((group) => group.id === groupId) ?? null;
+}
+
+export function toGitHubBlobHref(relativePath: string) {
+  return `${GITHUB_BLOB_BASE}${relativePath.replace(/^\//, "")}`;
 }
 
 export function getDocEntry(slug: string) {
@@ -379,28 +490,7 @@ export function renderMarkdownBlocks(blocks: MarkdownBlock[], currentFilePath: s
         );
 
       case "code":
-        return (
-          <div className="docs-code-block" key={key}>
-            <div className="docs-code-header">
-              <div className="docs-code-header-main">
-                <span className="docs-code-dots" aria-hidden="true">
-                  <span />
-                  <span />
-                  <span />
-                </span>
-                <span className="docs-code-language">
-                  {formatCodeLanguage(block.language || "code")}
-                </span>
-              </div>
-              <span className="docs-code-caption">{getCodeCaption(block.language)}</span>
-            </div>
-            <pre className="docs-code-pre">
-              <code>
-                {renderCodeLines(block.code, block.language || "text", `${key}-code`)}
-              </code>
-            </pre>
-          </div>
-        );
+        return renderCodeSnippet(block.code, block.language || "text", key);
 
       case "table":
         return (
@@ -674,7 +764,7 @@ function resolveMarkdownHref(href: string, currentFilePath: string) {
   }
 
   return {
-    href: `${GITHUB_BLOB_BASE}${normalized}`,
+    href: toGitHubBlobHref(normalized),
     external: true,
     internal: false,
   };
@@ -696,6 +786,19 @@ function renderCodeLines(code: string, language: string, keyPrefix: string) {
       </span>
     </span>
   ));
+}
+
+export function renderCodeSnippet(code: string, language: string, keyPrefix: string) {
+  return (
+    <CodeBlock
+      caption={getCodeCaption(language)}
+      code={code}
+      key={keyPrefix}
+      languageLabel={formatCodeLanguage(language || "code")}
+    >
+      {renderCodeLines(code, language || "text", `${keyPrefix}-code`)}
+    </CodeBlock>
+  );
 }
 
 function renderCodeTokens(tokens: CodeToken[], keyPrefix: string) {

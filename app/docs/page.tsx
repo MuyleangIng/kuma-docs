@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { CopyButton } from "@/components/copy-button";
 import { DocsShell } from "@/components/docs-shell";
 import { getDocGroups } from "@/lib/docs";
 
@@ -34,11 +35,39 @@ export default function DocsIndexPage() {
         </div>
 
         <div className="docs-install">
-          <h2>Install</h2>
+          <div className="docs-install-head">
+            <h2>Install</h2>
+            <CopyButton label="Copy install" text="npm install koma-khqr" />
+          </div>
           <p>The package itself stays small. Pick the guide that matches your stack.</p>
           <pre>{`npm install koma-khqr`}</pre>
         </div>
       </div>
+
+      <section className="docs-section">
+        <div className="docs-section-head">
+          <p className="docs-section-label">Structure</p>
+          <h2>Choose the integration shape first</h2>
+        </div>
+
+        <div className="docs-detail-grid">
+          <div className="docs-detail-card">
+            <span className="docs-detail-label">Full-stack</span>
+            <strong className="docs-detail-value">Next.js or Nuxt</strong>
+            <p className="docs-detail-copy">Use the framework’s own server routes. You do not need Express just to get KHQR working.</p>
+          </div>
+          <div className="docs-detail-card">
+            <span className="docs-detail-label">Client-only frontend</span>
+            <strong className="docs-detail-value">React, Vite, Vue, Angular</strong>
+            <p className="docs-detail-copy">Keep the UI in the frontend and pair it with a small backend that owns `KOMA_SECRET_KEY`.</p>
+          </div>
+          <div className="docs-detail-card">
+            <span className="docs-detail-label">Backend-first</span>
+            <strong className="docs-detail-value">Express or NestJS</strong>
+            <p className="docs-detail-copy">Use the server adapter directly when you want to plug KHQR into an existing Node backend.</p>
+          </div>
+        </div>
+      </section>
 
       {groups.map((group) => (
         <section className="docs-section" key={group.id}>

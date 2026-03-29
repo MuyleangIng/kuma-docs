@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import Link from "next/link";
 
+import { DocsSidebar } from "@/components/docs-sidebar";
 import { getDocGroups, type TocItem } from "@/lib/docs";
 
 export function DocsShell({
@@ -49,24 +50,7 @@ export function DocsShell({
       </header>
 
       <div className="docs-layout">
-        <aside className="docs-sidebar">
-          {groups.map((group) => (
-            <section className="docs-sidebar-group" key={group.id}>
-              <h2 className="docs-sidebar-label">{group.title}</h2>
-              <div className="docs-sidebar-list">
-                {group.entries.map((entry) => (
-                  <Link
-                    className={`docs-sidebar-item${currentSlug === entry.slug ? " is-active" : ""}`}
-                    href={`/docs/${entry.slug}`}
-                    key={entry.slug}
-                  >
-                    {entry.title}
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ))}
-        </aside>
+        <DocsSidebar currentSlug={currentSlug} groups={groups} />
 
         <main className="docs-content-panel">{children}</main>
 
