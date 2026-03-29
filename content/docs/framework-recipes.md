@@ -1,6 +1,14 @@
-# Framework Recipes
+# Framework And Ecosystem Guides
 
-This file is the router for framework-specific integration guides.
+This file is the router for the in-repo integration guides, runnable examples, and ecosystem notes.
+
+## Start Here
+
+- First setup: [first-setup.md](./first-setup.md)
+- Example overview: [example-apps.md](./example-apps.md)
+- Support checklist: [framework-support-checklist.md](./framework-support-checklist.md)
+- Testing matrix: [testing-matrix.md](./testing-matrix.md)
+- Sandbox guide: [sandbox-testing.md](./sandbox-testing.md)
 
 ## Shared Env
 
@@ -15,7 +23,7 @@ Use `KOMA_APP_URL` as the standard app URL.
 
 `NEXT_PUBLIC_APP_URL` is supported as a backward-compatible fallback for older projects.
 
-## Framework Guides
+## Node Family: Implemented Now
 
 - Next.js TypeScript: [next-typescript.md](./next-typescript.md)
 - Next.js JavaScript: [next-javascript.md](./next-javascript.md)
@@ -27,17 +35,35 @@ Use `KOMA_APP_URL` as the standard app URL.
 - Express: [express.md](./express.md)
 - NestJS: [nest.md](./nest.md)
 - Angular: [angular.md](./angular.md)
-- Testing Matrix: [testing-matrix.md](./testing-matrix.md)
-- Framework Support Checklist: [framework-support-checklist.md](./framework-support-checklist.md)
-- Sandbox Testing: [sandbox-testing.md](./sandbox-testing.md)
+- Example overview: [example-apps.md](./example-apps.md)
+
+## Java Recipes
+
+- Spring Boot: [spring.md](./spring.md)
+
+## Python Recipes
+
+- Python overview: [python.md](./python.md)
+- FastAPI: [fastapi.md](./fastapi.md)
+- Flask: [flask.md](./flask.md)
+- Django: [django.md](./django.md)
+
+## PHP Recipes
+
+- PHP: [php.md](./php.md)
+- Laravel: [laravel.md](./laravel.md)
+- PI integration reference: [pi-integration.md](./pi-integration.md)
+
+These non-Node pages are custom backend recipes. They are useful implementation guides, but they are not first-class package runtimes in this repo.
 
 ## Current Status
 
-- every listed framework target has a runnable in-repo example
-- every listed framework target can create a live checkout session with real merchant env
+- all `8` Node-family framework targets have runnable in-repo examples
+- all `8` Node-family framework targets can create a live checkout session with real merchant env
+- Spring Boot, FastAPI, Flask, Django, PHP, and Laravel now have custom backend recipe docs
 - the only remaining manual proof step is scanning and completing a payment in a real banking app
 
-## Easy Package Story
+## Package Surface
 
 Use the package like this:
 

@@ -1,2 +1,12 @@
 .next
 node_modules
+examples/**/node_modules
+examples/**/.next
+examples/**/.nuxt
+examples/**/.output
+examples/**/.angular
+examples/**/dist
+examples/**/build
+examples/**/coverage
+examples/**/.env
+examples/**/.env.local

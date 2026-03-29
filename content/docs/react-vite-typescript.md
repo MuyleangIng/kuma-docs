@@ -82,4 +82,6 @@ app.use(
 
 ## Reference
 
-Use [examples/react-vite-ts/README.md](../examples/react-vite-ts/README.md) as the runnable reference.
+- start with [First Setup](./first-setup.md) if you still need merchant credentials
+- runnable in-repo example: `examples/react-vite-ts`
+- public overview: [Example Apps](./example-apps.md)

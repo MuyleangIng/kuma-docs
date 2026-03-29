@@ -48,4 +48,6 @@ const koma = createKomaAngularConfig();
 
 ## Runnable Example
 
-- [examples/angular/README.md](../examples/angular/README.md)
+- start with [First Setup](./first-setup.md) if you still need merchant credentials
+- runnable in-repo example: `examples/angular`
+- public overview: [Example Apps](./example-apps.md)

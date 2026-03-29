@@ -66,4 +66,6 @@ Use `koma-khqr/server` for:
 
 Runnable example:
 
-- [examples/nuxt/README.md](../examples/nuxt/README.md)
+- start with [First Setup](./first-setup.md) if you still need merchant credentials
+- runnable in-repo example: `examples/nuxt`
+- public overview: [Example Apps](./example-apps.md)

@@ -1,0 +1,22 @@
+{
+  "name": "koma-khqr-react-vite-js-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"node server.mjs\" \"vite dev --host 127.0.0.1 --port 5173\"",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "koma-khqr": "^0.2.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "vite": "^6.3.2"
+  }
+}
+

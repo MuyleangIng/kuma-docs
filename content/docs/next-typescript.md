@@ -108,4 +108,6 @@ Recommended paths:
 
 - `KOMA_SECRET_KEY` stays server-only
 - the full flow should include checkout, polling, success, and cancelled pages
-- see [examples/next-khqr-demo/README.md](../examples/next-khqr-demo/README.md) for the runnable example
+- start with [First Setup](./first-setup.md) if you still need merchant credentials
+- runnable in-repo example: `examples/next-khqr-demo`
+- public overview: [Example Apps](./example-apps.md)

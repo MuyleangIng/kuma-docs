@@ -1,0 +1,31 @@
+{
+  "name": "koma-khqr-angular-example",
+  "private": true,
+  "scripts": {
+    "build": "ng build",
+    "dev": "concurrently -k -n api,web -c green,blue \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:client": "ng serve --host 127.0.0.1 --port 4200 --proxy-config proxy.conf.json",
+    "dev:server": "node server.mjs",
+    "start": "ng serve --host 127.0.0.1 --port 4200 --proxy-config proxy.conf.json"
+  },
+  "dependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/compiler": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/forms": "^19.2.0",
+    "@angular/platform-browser": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "koma-khqr": "^0.2.5",
+    "rxjs": "^7.8.1",
+    "zone.js": "^0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.2.0",
+    "@angular/cli": "^19.2.0",
+    "@angular/compiler-cli": "^19.2.0",
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  }
+}

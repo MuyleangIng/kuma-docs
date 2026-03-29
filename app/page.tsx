@@ -33,9 +33,9 @@ export default function HomePage() {
             </p>
             <div className="docs-pill-row">
               <span className="docs-pill">Node ecosystem</span>
-              <span className="docs-pill">Java ecosystem</span>
-              <span className="docs-pill">Python ecosystem</span>
-              <span className="docs-pill">Laravel / PHP</span>
+              <span className="docs-pill">Java: Spring Boot</span>
+              <span className="docs-pill">Python: FastAPI, Flask, Django</span>
+              <span className="docs-pill">PHP: PHP and Laravel</span>
               <span className="docs-pill">Dark + light mode</span>
             </div>
           </div>
@@ -45,7 +45,8 @@ export default function HomePage() {
               <h2>Start with Koma dashboard setup</h2>
               <p>
                 The docs now include a first-setup guide for getting your API secret key,
-                Merchant Name, and Merchant ID before you touch framework code.
+                Merchant Name, and Merchant ID before you touch framework code. The ecosystem
+                sidebar also includes concrete custom-backend recipes outside the Node runtime.
               </p>
               <div className="docs-action-row">
                 <Link className="docs-action-button docs-action-primary" href="/docs/first-setup">
@@ -75,7 +76,7 @@ export default function HomePage() {
                 <span className="docs-card-kicker">Docs Home</span>
                 <h3 className="docs-card-title">Documentation Index</h3>
                 <p className="docs-card-copy">
-                  Browse all framework guides, testing references, and integration notes.
+                  Browse Node, Spring Boot, Python, PHP, Laravel, testing references, and setup notes.
                 </p>
                 <span className="docs-card-arrow">Open →</span>
               </Link>

@@ -10,8 +10,9 @@ import { CodeBlock } from "@/components/code-block";
 
 const DOCS_DIR = path.join(process.cwd(), "content", "docs");
 const PUBLIC_DOCS_BLOB_BASE = "https://github.com/MuyleangIng/kuma-docs/blob/main/";
+const PUBLIC_DOCS_TREE_BASE = "https://github.com/MuyleangIng/kuma-docs/tree/main/";
 
-export type DocGroupId = "overview" | "ecosystems" | "reference";
+export type DocGroupId = "overview" | "node" | "java" | "python" | "php" | "reference";
 
 export interface DocEntry {
   slug: string;
@@ -78,9 +79,24 @@ export const DOC_GROUPS = [
     description: "Architecture, support, and testing guides for the whole package.",
   },
   {
-    id: "ecosystems" as const,
-    title: "Ecosystem Guides",
-    description: "Node frameworks plus custom backend ecosystem notes in one place.",
+    id: "node" as const,
+    title: "Node",
+    description: "Frameworks and runtimes with first-class package support.",
+  },
+  {
+    id: "java" as const,
+    title: "Java",
+    description: "Custom backend recipes for Spring Boot integrations.",
+  },
+  {
+    id: "python" as const,
+    title: "Python",
+    description: "Custom backend recipes for FastAPI, Flask, and Django.",
+  },
+  {
+    id: "php" as const,
+    title: "PHP",
+    description: "Custom backend recipes for plain PHP and Laravel.",
   },
   {
     id: "reference" as const,
@@ -157,10 +173,10 @@ App Env
     fileName: "next-typescript.md",
     title: "Next.js TypeScript",
     description: "Use the first-class Next helpers with App Router and TypeScript.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/next",
     runtime: "Next.js App Router with server route handlers",
-    examplePath: "example-apps",
+    examplePath: "examples/next-khqr-demo",
     status: "available",
     structure: `app/
   page.tsx
@@ -177,10 +193,10 @@ App Env
     fileName: "next-javascript.md",
     title: "Next.js JavaScript",
     description: "Use the same App Router flow in plain JavaScript.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/next",
     runtime: "Next.js App Router with server route handlers",
-    examplePath: "example-apps",
+    examplePath: "examples/next-khqr-demo",
     status: "available",
     structure: `app/
   page.js
@@ -197,10 +213,10 @@ App Env
     fileName: "react.md",
     title: "React",
     description: "Understand the React UI layer and the server runtime it still needs.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/react",
     runtime: "React UI plus a separate server runtime",
-    examplePath: "example-apps",
+    examplePath: "examples/react",
     status: "available",
     structure: `src/
   App.jsx
@@ -212,10 +228,10 @@ server.mjs`,
     fileName: "react-vite-typescript.md",
     title: "React + Vite TypeScript",
     description: "Vite frontend plus Express backend with TypeScript-ready structure.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/react + koma-khqr/express",
     runtime: "Vite frontend plus a small Node backend",
-    examplePath: "example-apps",
+    examplePath: "examples/react-vite-ts",
     status: "available",
     structure: `src/
   App.tsx
@@ -227,10 +243,10 @@ server.mjs`,
     fileName: "react-vite-javascript.md",
     title: "React + Vite JavaScript",
     description: "The same Vite pattern in plain JavaScript.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/react + koma-khqr/express",
     runtime: "Vite frontend plus a small Node backend",
-    examplePath: "example-apps",
+    examplePath: "examples/react-vite-js",
     status: "available",
     structure: `src/
   App.jsx
@@ -242,10 +258,10 @@ server.mjs`,
     fileName: "vue.md",
     title: "Vue",
     description: "Use Vue with a small backend or move to Nuxt for a stronger full-stack fit.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/vue + server runtime",
     runtime: "Vue frontend plus a small Node backend",
-    examplePath: "example-apps",
+    examplePath: "examples/vue-vite",
     status: "available",
     structure: `src/
   App.vue
@@ -257,10 +273,10 @@ server.mjs`,
     fileName: "nuxt.md",
     title: "Nuxt",
     description: "Nuxt pages and server routes for a full-stack KHQR integration.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/server",
     runtime: "Nuxt pages plus Nitro server routes",
-    examplePath: "example-apps",
+    examplePath: "examples/nuxt",
     status: "available",
     structure: `pages/
   index.vue
@@ -279,10 +295,10 @@ server/
     fileName: "express.md",
     title: "Express",
     description: "Ready-made backend endpoints for client-only frontends.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/express",
     runtime: "Standalone Node backend",
-    examplePath: "example-apps",
+    examplePath: "examples/express",
     status: "available",
     structure: `public/
   app.js
@@ -294,10 +310,10 @@ server.mjs`,
     fileName: "nest.md",
     title: "NestJS",
     description: "Controller and service layering for a more structured Node backend.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/server",
     runtime: "NestJS controllers and services",
-    examplePath: "example-apps",
+    examplePath: "examples/nest",
     status: "available",
     structure: `src/
   main.ts
@@ -314,10 +330,10 @@ public/
     fileName: "angular.md",
     title: "Angular",
     description: "Angular frontend plus Express or Nest backend for secure signing.",
-    group: "ecosystems",
+    group: "node",
     entrypoint: "koma-khqr/angular + server runtime",
     runtime: "Angular SPA plus a secure backend",
-    examplePath: "example-apps",
+    examplePath: "examples/angular",
     status: "available",
     structure: `src/
   app/
@@ -330,11 +346,12 @@ server.mjs`,
     slug: "spring",
     fileName: "spring.md",
     title: "Spring Boot",
-    description: "Coming soon: custom Java backend guidance for Koma KHQR.",
-    group: "ecosystems",
+    description: "Custom Java backend recipe with Spring MVC endpoints and a signing service.",
+    group: "java",
     entrypoint: "Custom Java backend",
     runtime: "Spring Boot server plus any frontend",
-    status: "coming-soon",
+    examplePath: "examples/spring-boot",
+    status: "available",
     structure: `src/main/java/com/example/koma/
   config/
     KomaProperties.java
@@ -348,12 +365,12 @@ src/main/resources/
   {
     slug: "python",
     fileName: "python.md",
-    title: "Python",
-    description: "Coming soon: custom Python backend guidance for Koma KHQR.",
-    group: "ecosystems",
+    title: "Python Overview",
+    description: "Choose the right Python backend shape before you implement FastAPI, Flask, or Django.",
+    group: "python",
     entrypoint: "Custom Python backend",
     runtime: "Python API server plus any frontend",
-    status: "coming-soon",
+    status: "available",
     structure: `app/
   main.py
   settings.py
@@ -363,14 +380,89 @@ templates/
   cancelled.html`,
   },
   {
+    slug: "fastapi",
+    fileName: "fastapi.md",
+    title: "FastAPI",
+    description: "Custom Python backend recipe with typed request models and async route handlers.",
+    group: "python",
+    entrypoint: "Custom FastAPI backend",
+    runtime: "FastAPI server plus any frontend",
+    examplePath: "examples/fastapi",
+    status: "available",
+    structure: `app/
+  main.py
+  schemas.py
+  settings.py
+  koma_service.py`,
+  },
+  {
+    slug: "flask",
+    fileName: "flask.md",
+    title: "Flask",
+    description: "Custom Python backend recipe with lightweight routes and explicit env loading.",
+    group: "python",
+    entrypoint: "Custom Flask backend",
+    runtime: "Flask server plus any frontend",
+    examplePath: "examples/flask",
+    status: "available",
+    structure: `app.py
+config.py
+koma_service.py
+templates/
+  success.html
+  cancelled.html`,
+  },
+  {
+    slug: "django",
+    fileName: "django.md",
+    title: "Django",
+    description: "Custom Python backend recipe using Django views, urls, and settings.",
+    group: "python",
+    entrypoint: "Custom Django backend",
+    runtime: "Django server plus any frontend",
+    examplePath: "examples/django",
+    status: "available",
+    structure: `project/
+  settings.py
+  urls.py
+payments/
+  urls.py
+  views.py
+  services.py
+templates/
+  payment/
+    success.html
+    cancelled.html`,
+  },
+  {
+    slug: "php",
+    fileName: "php.md",
+    title: "PHP",
+    description: "Custom PHP backend recipe for teams not using Laravel.",
+    group: "php",
+    entrypoint: "Custom PHP backend",
+    runtime: "Plain PHP server plus any frontend",
+    examplePath: "examples/php",
+    status: "available",
+    structure: `public/
+  index.php
+src/
+  KomaConfig.php
+  KomaService.php
+views/
+  success.php
+  cancelled.php`,
+  },
+  {
     slug: "laravel",
     fileName: "laravel.md",
     title: "Laravel",
-    description: "Coming soon: custom PHP / Laravel backend guidance for Koma KHQR.",
-    group: "ecosystems",
+    description: "Custom Laravel backend recipe with routes, controller methods, and a service class.",
+    group: "php",
     entrypoint: "Custom PHP backend",
     runtime: "Laravel server plus any frontend",
-    status: "coming-soon",
+    examplePath: "examples/laravel",
+    status: "available",
     structure: `app/
   Http/Controllers/
     KomaController.php
@@ -400,6 +492,17 @@ resources/views/
 ];
 
 const DOC_ENTRY_BY_SLUG = new Map(DOC_ENTRIES.map((entry) => [entry.slug, entry]));
+const EXAMPLE_DOC_ANCHOR_MAP = new Map<string, string>([
+  ["next-khqr-demo", "next-js"],
+  ["react", "react"],
+  ["react-vite-ts", "react-vite"],
+  ["react-vite-js", "react-vite"],
+  ["vue-vite", "vue-vite"],
+  ["nuxt", "nuxt"],
+  ["express", "express"],
+  ["nest", "nestjs"],
+  ["angular", "angular"],
+]);
 
 const SCRIPT_KEYWORDS = new Set([
   "as",
@@ -503,6 +606,10 @@ export function getDocGroup(groupId: DocGroupId) {
 
 export function toGitHubBlobHref(relativePath: string) {
   return `${PUBLIC_DOCS_BLOB_BASE}${relativePath.replace(/^\//, "")}`;
+}
+
+export function toGitHubTreeHref(relativePath: string) {
+  return `${PUBLIC_DOCS_TREE_BASE}${relativePath.replace(/^\//, "")}`;
 }
 
 export function getDocEntry(slug: string) {
@@ -867,9 +974,10 @@ function resolveMarkdownHref(href: string, currentFilePath: string) {
 
   if (normalized.startsWith("examples/")) {
     const [, exampleName] = normalized.split("/");
+    const anchor = exampleName ? EXAMPLE_DOC_ANCHOR_MAP.get(exampleName) : null;
 
     return {
-      href: exampleName ? `/docs/example-apps#${exampleName}` : "/docs/example-apps",
+      href: anchor ? `/docs/example-apps#${anchor}` : "/docs/example-apps",
       external: false,
       internal: true,
     };

@@ -1,8 +1,8 @@
 # Example Apps
 
-This page is the public example overview for `koma-khqr`.
+This page is the example overview for `koma-khqr`.
 
-The package repo contains runnable examples for the Node-family integrations, but this docs site is the public place to understand their structure and testing shape without relying on private repo links.
+The package repo contains runnable examples for the implemented Node-family integrations. Use this page to understand their shape quickly before opening a specific example folder.
 
 ## Available Now
 
@@ -11,6 +11,7 @@ The package repo contains runnable examples for the Node-family integrations, bu
 - runtime: Next.js App Router
 - flow: checkout page, API routes, success page, cancelled page
 - best for: full-stack React apps
+- repo path: `examples/next-khqr-demo`
 
 Typical structure:
 
@@ -31,6 +32,7 @@ app/
 - runtime: Vite frontend + small Node backend
 - flow: client UI + secure backend routes
 - best for: client-only React frontend with lightweight server
+- repo path: `examples/react-vite-ts` and `examples/react-vite-js`
 
 Typical structure:
 
@@ -45,6 +47,7 @@ server.mjs
 
 - runtime: React frontend + separate backend
 - flow: UI in React, signing on the server
+- repo path: `examples/react`
 
 Typical structure:
 
@@ -59,6 +62,7 @@ server.mjs
 
 - runtime: Vue frontend + small Node backend
 - flow: client UI + secure backend routes
+- repo path: `examples/vue-vite`
 
 Typical structure:
 
@@ -73,6 +77,7 @@ server.mjs
 
 - runtime: Nuxt pages + Nitro server routes
 - flow: full-stack app in one framework
+- repo path: `examples/nuxt`
 
 Typical structure:
 
@@ -92,6 +97,7 @@ server/
 
 - runtime: standalone Node backend
 - flow: secure KHQR backend adapter
+- repo path: `examples/express`
 
 Typical structure:
 
@@ -106,6 +112,7 @@ server.mjs
 
 - runtime: structured Node backend
 - flow: controller + service layers
+- repo path: `examples/nest`
 
 Typical structure:
 
@@ -122,6 +129,7 @@ src/
 
 - runtime: Angular SPA + secure backend
 - flow: frontend UI plus Express or Nest backend
+- repo path: `examples/angular`
 
 Typical structure:
 
@@ -134,22 +142,26 @@ src/
 server.mjs
 ```
 
-## Coming Soon
+## Custom Backend Recipes
 
-These ecosystem pages are documented as direction pages, not full runnable package examples yet:
+These stacks now have implementation recipe pages with concrete file layouts and code snippets, but they are not runnable in-repo package examples:
 
-- Spring Boot
-- Python
-- Laravel / PHP
+- Spring Boot: [spring.md](./spring.md)
+- Python overview: [python.md](./python.md)
+- FastAPI: [fastapi.md](./fastapi.md)
+- Flask: [flask.md](./flask.md)
+- Django: [django.md](./django.md)
+- PHP: [php.md](./php.md)
+- Laravel: [laravel.md](./laravel.md)
 
-For those stacks, use:
+Use these shared references first:
 
 - [First Setup](./first-setup.md)
 - [PI Integration Reference](./pi-integration.md)
 
-## What Public Docs Cover
+## What This Overview Covers
 
-The public docs site covers:
+This overview covers:
 
 - setup flow
 - env contract
@@ -158,4 +170,4 @@ The public docs site covers:
 - suggested structure
 - example overview
 
-The private workspace repo still contains the runnable in-repo example applications for the Node-family support paths.
+The example folders listed above are the in-repo source of truth for the implemented Node-family support paths.

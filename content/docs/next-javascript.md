@@ -81,4 +81,6 @@ Keep those routes aligned with `KOMA_APP_URL`.
 
 Runnable example:
 
-- [examples/next-khqr-demo/README.md](../examples/next-khqr-demo/README.md)
+- start with [First Setup](./first-setup.md) if you still need merchant credentials
+- runnable in-repo example: `examples/next-khqr-demo`
+- public overview: [Example Apps](./example-apps.md)

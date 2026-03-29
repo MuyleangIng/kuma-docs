@@ -42,4 +42,6 @@ KOMA_APP_URL=http://localhost:3000
 
 Runnable example:
 
-- [examples/nest/README.md](../examples/nest/README.md)
+- start with [First Setup](./first-setup.md) if you still need merchant credentials
+- runnable in-repo example: `examples/nest`
+- public overview: [Example Apps](./example-apps.md)

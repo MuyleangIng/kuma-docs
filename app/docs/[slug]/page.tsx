@@ -12,6 +12,7 @@ import {
   renderCodeSnippet,
   renderMarkdownBlocks,
   toGitHubBlobHref,
+  toGitHubTreeHref,
 } from "@/lib/docs";
 
 export async function generateStaticParams() {
@@ -72,9 +73,19 @@ export default async function DocPage({
 
         <div className="docs-action-row">
           {parsed.entry.examplePath ? (
-            <Link className="docs-action-button docs-action-primary" href="/docs/example-apps">
-              View example overview
-            </Link>
+            <>
+              <a
+                className="docs-action-button docs-action-primary"
+                href={toGitHubTreeHref(parsed.entry.examplePath)}
+                rel="noreferrer"
+                target="_blank"
+              >
+                View example source
+              </a>
+              <Link className="docs-action-button" href="/docs/example-apps">
+                View example overview
+              </Link>
+            </>
           ) : null}
           <a
             className="docs-action-button"

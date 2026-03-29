@@ -55,4 +55,6 @@ If you want a stronger first-class Vue integration, prefer Nuxt:
 
 Runnable example:
 
-- [examples/vue-vite/README.md](../examples/vue-vite/README.md)
+- start with [First Setup](./first-setup.md) if you still need merchant credentials
+- runnable in-repo example: `examples/vue-vite`
+- public overview: [Example Apps](./example-apps.md)

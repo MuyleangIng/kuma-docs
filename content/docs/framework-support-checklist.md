@@ -1,6 +1,8 @@
-# Node Family Support Checklist
+# Framework Support Checklist
 
-This is the current Node ecosystem support and test checklist for `koma-khqr`.
+This is the current implementation and verification checklist for `koma-khqr`.
+
+The counts in this file cover the implemented Node-family targets only. Spring Boot, Python, PHP, and Laravel recipe docs exist, but they are custom backend guides and are not counted as implemented package runtimes.
 
 Legacy sandboxes that are not part of the current support matrix are excluded from this document.
 
@@ -31,6 +33,13 @@ Legacy sandboxes that are not part of the current support matrix are excluded fr
 6. Express
 7. NestJS
 8. Angular
+
+## Custom Backend Ecosystem Notes
+
+- Spring Boot: custom backend recipe docs available
+- Python overview, FastAPI, Flask, and Django recipe docs available
+- PHP and Laravel recipe docs available
+- these recipe pages are not counted in the `8` implemented framework targets above
 
 ## Node Runtime Support
 
@@ -147,6 +156,12 @@ Live checkout-session creation verified with real merchant env:
 ## Manual-Only Follow-Up
 
 - [ ] optional: record one real scanned payment completion on-device if you want bank-confirmed screenshots in release evidence
+
+## Public Docs Router
+
+- [First Setup](./first-setup.md)
+- [Example Apps](./example-apps.md)
+- [Framework And Ecosystem Guides](./framework-recipes.md)
 
 ## Framework-by-Framework Test Checklist
 

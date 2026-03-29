@@ -64,5 +64,10 @@ Your frontend should still include:
 - `/payment/success`
 - `/payment/cancelled`
 
-See [examples/express/README.md](../examples/express/README.md) for the standalone Express app.
-If you want the same backend adapter paired with a client-only frontend, see [examples/react-vite-ts/README.md](../examples/react-vite-ts/README.md).
+Start with [First Setup](./first-setup.md) if you still need merchant credentials.
+
+Runnable in-repo examples:
+
+- standalone backend: `examples/express`
+- client + backend pairing: `examples/react-vite-ts`
+- public overview: [Example Apps](./example-apps.md)

@@ -1,0 +1,14 @@
+{
+  "name": "koma-khqr-express-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "koma-khqr": "^0.2.5"
+  }
+}

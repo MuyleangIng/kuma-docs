@@ -17,12 +17,13 @@ export default function DocsIndexPage() {
           pages, then deeper reference material. Everything here is backed by the existing root
           markdown docs so the content stays in sync.
         </p>
-        <div className="docs-pill-row">
-          <span className="docs-pill">Node ecosystem guides</span>
-          <span className="docs-pill">Custom ecosystem notes</span>
-          <span className="docs-pill">Spring, Python, Laravel coming soon</span>
-          <span className="docs-pill">Live session verification complete</span>
-        </div>
+            <div className="docs-pill-row">
+              <span className="docs-pill">Node ecosystem guides</span>
+              <span className="docs-pill">Java recipe pages</span>
+              <span className="docs-pill">Python recipe pages</span>
+              <span className="docs-pill">PHP and Laravel recipes</span>
+              <span className="docs-pill">Live session verification complete</span>
+            </div>
       </div>
 
       <div className="docs-split">
@@ -56,11 +57,11 @@ export default function DocsIndexPage() {
           <h2>Choose the integration shape first</h2>
         </div>
 
-        <div className="docs-detail-grid">
-          <div className="docs-detail-card">
-            <span className="docs-detail-label">Full-stack</span>
-            <strong className="docs-detail-value">Next.js or Nuxt</strong>
-            <p className="docs-detail-copy">Use the framework’s own server routes. You do not need Express just to get KHQR working.</p>
+          <div className="docs-detail-grid">
+            <div className="docs-detail-card">
+              <span className="docs-detail-label">Full-stack</span>
+              <strong className="docs-detail-value">Next.js or Nuxt</strong>
+              <p className="docs-detail-copy">Use the framework’s own server routes. You do not need Express just to get KHQR working.</p>
           </div>
           <div className="docs-detail-card">
             <span className="docs-detail-label">Client-only frontend</span>
@@ -74,13 +75,13 @@ export default function DocsIndexPage() {
           </div>
           <div className="docs-detail-card">
             <span className="docs-detail-label">Custom ecosystems</span>
-            <strong className="docs-detail-value">Spring Boot or Python</strong>
-            <p className="docs-detail-copy">Use the setup and signing reference guides when your secure backend is outside the npm runtime family.</p>
+            <strong className="docs-detail-value">Spring Boot and Python</strong>
+            <p className="docs-detail-copy">Use the new recipe pages when your secure backend is outside the npm runtime family.</p>
           </div>
           <div className="docs-detail-card">
-            <span className="docs-detail-label">Coming soon</span>
-            <strong className="docs-detail-value">Laravel / PHP</strong>
-            <p className="docs-detail-copy">The ecosystem section now includes placeholder direction pages for non-Node runtimes that are not implemented as package entrypoints yet.</p>
+            <span className="docs-detail-label">PHP</span>
+            <strong className="docs-detail-value">PHP or Laravel</strong>
+            <p className="docs-detail-copy">The docs now include custom backend recipes for plain PHP and Laravel, separate from the package runtime support matrix.</p>
           </div>
         </div>
       </section>

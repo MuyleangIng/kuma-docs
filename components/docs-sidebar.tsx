@@ -61,7 +61,7 @@ export function DocsSidebar({
             className="docs-search-input"
             id="docs-search"
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="React, Nuxt, Express, server..."
+            placeholder="React, FastAPI, Django, Laravel..."
             type="search"
             value={query}
           />
@@ -96,7 +96,7 @@ export function DocsSidebar({
       ) : (
         <div className="docs-search-empty">
           <p>No guides match that search.</p>
-          <p>Try `Next`, `React`, `Express`, `Nuxt`, or `Angular`.</p>
+          <p>Try `Next`, `React`, `FastAPI`, `Spring`, `Django`, or `Laravel`.</p>
         </div>
       )}
     </aside>
