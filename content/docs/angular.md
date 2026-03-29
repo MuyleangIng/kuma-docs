@@ -27,6 +27,8 @@ import { createKomaAngularConfig } from "koma-khqr/angular";
 
 Do not attempt to sign Koma requests inside Angular browser code.
 
+Express is the simple backend option for Angular SPAs, not a universal requirement. If your team already uses NestJS or another Node backend, keep that backend and place the secure Koma work there.
+
 ## Env
 
 ```env

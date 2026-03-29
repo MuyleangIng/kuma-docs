@@ -22,6 +22,8 @@ import { createKomaVueConfig } from "koma-khqr/vue";
 
 For Vue + Vite, the easiest backend is `koma-khqr/express`.
 
+That does not mean Vue always needs Express specifically. It means a client-only Vue app still needs some server runtime somewhere to own `KOMA_SECRET_KEY` and call Koma securely. Express is just the smallest ready-made backend path in this package.
+
 ## Env
 
 ```env

@@ -8,6 +8,10 @@ Use this when your frontend is Vite and your backend is a small Node server.
 npm install koma-khqr react react-dom
 ```
 
+If you start from the runnable example, stop there. The example app already includes the platform packages it needs.
+
+Only add `express` if your Vite frontend needs a small Node backend, and only add `dotenv` if that plain Node backend should load `.env.local` itself.
+
 ## Env
 
 Keep these on the server side of your Vite setup:
@@ -46,6 +50,10 @@ export default function App() {
 ```
 
 ## Server
+
+This server example uses `express` because Vite is only the frontend tool here. The backend still needs somewhere safe to keep `KOMA_SECRET_KEY`.
+
+`dotenv` appears here only because `server.mjs` is a plain Node file. If your runtime already loads env vars, remove it.
 
 ```ts
 import express from "express";

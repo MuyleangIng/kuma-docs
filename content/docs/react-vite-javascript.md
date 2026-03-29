@@ -8,6 +8,10 @@ The integration shape is the same as the TypeScript Vite guide, but with `.jsx` 
 npm install koma-khqr react react-dom
 ```
 
+If you start from the runnable example, that example already includes its platform packages.
+
+Only add `express` if your Vite frontend needs a small Node backend, and only add `dotenv` if that plain Node backend should load local `.env` values by itself.
+
 ## Env
 
 Keep these on the server side of your Vite setup:
@@ -48,9 +52,15 @@ export default function App() {
 
 Use `koma-khqr/express` for the backend and keep `KOMA_SECRET_KEY` on the server only.
 
+This example uses `express` because Vite does not provide the secure KHQR backend by itself. `dotenv` is only there because `server.mjs` is a plain Node file.
+
 ```js
 import express from "express";
+import { config as loadEnv } from "dotenv";
 import { createKomaExpress } from "koma-khqr/express";
+
+loadEnv({ path: ".env.local" });
+loadEnv();
 
 const app = express();
 

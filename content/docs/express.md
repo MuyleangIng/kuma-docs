@@ -2,11 +2,15 @@
 
 Express is the recommended backend adapter for React + Vite, Vue + Vite, Angular SPA, and other client-only frontends.
 
+It is not required for Next.js, Nuxt, or other frameworks that already give you a server runtime. Use this guide when your frontend is client-only and you want the shortest Node backend path.
+
 ## Install
 
 ```bash
 npm install koma-khqr express
 ```
+
+Add `dotenv` only if you are running a plain Node server file and want it to load `.env` or `.env.local` directly during development.
 
 ## Fast Path
 
