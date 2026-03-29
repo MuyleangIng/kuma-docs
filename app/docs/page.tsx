@@ -26,12 +26,17 @@ export default function DocsIndexPage() {
 
       <div className="docs-split">
         <div className="docs-callout">
-          <h2>Support summary</h2>
+          <h2>Start with dashboard setup</h2>
           <p>
-            Next.js, React, React + Vite, Vue + Vite, Nuxt, Express, NestJS, and Angular all have
-            runnable examples and live checkout-session verification. The only manual step left is
-            scanning and completing a real payment if you want final proof screenshots.
+            Before you open any framework guide, get your merchant info and secret key from the
+            Koma dashboard. The new first-setup guide shows exactly where to log in, where to copy
+            the secret key, and where Merchant Name and Merchant ID come from.
           </p>
+          <div className="docs-action-row">
+            <Link className="docs-action-button docs-action-primary" href="/docs/first-setup">
+              Open first setup
+            </Link>
+          </div>
         </div>
 
         <div className="docs-install">

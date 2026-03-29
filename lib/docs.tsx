@@ -90,6 +90,15 @@ export const DOC_GROUPS = [
 
 export const DOC_ENTRIES: DocEntry[] = [
   {
+    slug: "first-setup",
+    fileName: "first-setup.md",
+    title: "First Setup",
+    description: "Get your secret key, merchant name, and merchant ID from the Koma dashboard before coding.",
+    group: "overview",
+    entrypoint: "Koma dashboard setup",
+    runtime: "Merchant settings and integration credentials",
+  },
+  {
     slug: "framework-recipes",
     fileName: "framework-recipes.md",
     title: "Framework Recipes",

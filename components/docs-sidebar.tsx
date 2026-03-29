@@ -15,7 +15,6 @@ type SidebarEntry = {
 type SidebarGroup = {
   id: string;
   title: string;
-  description: string;
   entries: SidebarEntry[];
 };
 
@@ -89,7 +88,6 @@ export function DocsSidebar({
                   key={entry.slug}
                 >
                   <span className="docs-sidebar-item-title">{entry.title}</span>
-                  <span className="docs-sidebar-item-copy">{entry.description}</span>
                 </Link>
               ))}
             </div>

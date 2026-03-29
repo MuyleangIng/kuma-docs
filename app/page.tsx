@@ -43,11 +43,16 @@ export default function HomePage() {
 
           <div className="docs-split">
             <div className="docs-callout">
-              <h2>What this site covers</h2>
+              <h2>Start with Koma dashboard setup</h2>
               <p>
-                The guides are powered from the root <code>docs/</code> folder, so your package
-                docs stay in one place while this site gives them a real web experience.
+                The docs now include a first-setup guide for getting your API secret key,
+                Merchant Name, and Merchant ID before you touch framework code.
               </p>
+              <div className="docs-action-row">
+                <Link className="docs-action-button docs-action-primary" href="/docs/first-setup">
+                  Open first setup
+                </Link>
+              </div>
             </div>
 
             <div className="docs-install">
