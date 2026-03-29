@@ -62,14 +62,9 @@ export default async function DocPage({
 
         <div className="docs-badge-row">
           <span className="docs-badge">{group?.title ?? parsed.entry.group}</span>
-          <a
-            className="docs-badge"
-            href={`https://github.com/KhmerStack/koma-khqr/blob/main/docs/${parsed.entry.fileName}`}
-            rel="noreferrer"
-            target="_blank"
-          >
-            Source
-          </a>
+          <span className={`docs-badge ${parsed.entry.status === "coming-soon" ? "is-muted" : ""}`}>
+            {parsed.entry.status === "coming-soon" ? "Coming soon" : "Available now"}
+          </span>
         </div>
 
         <h1 className="docs-page-title">{parsed.headline}</h1>
@@ -77,22 +72,17 @@ export default async function DocPage({
 
         <div className="docs-action-row">
           {parsed.entry.examplePath ? (
-            <a
-              className="docs-action-button docs-action-primary"
-              href={toGitHubBlobHref(parsed.entry.examplePath)}
-              rel="noreferrer"
-              target="_blank"
-            >
-              Open runnable example
-            </a>
+            <Link className="docs-action-button docs-action-primary" href="/docs/example-apps">
+              View example overview
+            </Link>
           ) : null}
           <a
             className="docs-action-button"
-            href={`https://github.com/KhmerStack/koma-khqr/blob/main/docs/${parsed.entry.fileName}`}
+            href={toGitHubBlobHref(`content/docs/${parsed.entry.fileName}`)}
             rel="noreferrer"
             target="_blank"
           >
-            View guide source
+            View public markdown
           </a>
         </div>
       </div>
@@ -118,8 +108,14 @@ export default async function DocPage({
           {parsed.entry.examplePath ? (
             <div className="docs-detail-card">
               <span className="docs-detail-label">Quick Test</span>
-              <strong className="docs-detail-value">Runnable example available</strong>
-              <p className="docs-detail-copy">Use the linked example repo path when you want the fastest working reference.</p>
+              <strong className="docs-detail-value">
+                {parsed.entry.status === "coming-soon" ? "Guide only for now" : "Public example overview"}
+              </strong>
+              <p className="docs-detail-copy">
+                {parsed.entry.status === "coming-soon"
+                  ? "This ecosystem page is directional and intentionally marked as coming soon."
+                  : "Use the example overview page for the public structure and testing shape."}
+              </p>
             </div>
           ) : null}
         </section>

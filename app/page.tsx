@@ -32,16 +32,11 @@ export default function HomePage() {
               product documentation site.
             </p>
             <div className="docs-pill-row">
-              <span className="docs-pill">Next.js</span>
-              <span className="docs-pill">React</span>
-              <span className="docs-pill">Vite</span>
-              <span className="docs-pill">Vue</span>
-              <span className="docs-pill">Nuxt</span>
-              <span className="docs-pill">Express</span>
-              <span className="docs-pill">NestJS</span>
-              <span className="docs-pill">Angular</span>
-              <span className="docs-pill">Spring</span>
-              <span className="docs-pill">Python</span>
+              <span className="docs-pill">Node ecosystem</span>
+              <span className="docs-pill">Java ecosystem</span>
+              <span className="docs-pill">Python ecosystem</span>
+              <span className="docs-pill">Laravel / PHP</span>
+              <span className="docs-pill">Dark + light mode</span>
             </div>
           </div>
 

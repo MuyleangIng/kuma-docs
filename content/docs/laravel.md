@@ -1,13 +1,13 @@
-# Python
+# Laravel
 
 Coming soon.
 
-This page is planned as a custom Python backend guide for Koma KHQR.
+This page is planned as a custom PHP / Laravel backend guide for Koma KHQR.
 
 ## Planned Coverage
 
-- secure checkout signing in Python
-- FastAPI or Flask route shape
+- secure checkout signing in PHP
+- Laravel controller and service layout
 - `POST /api/koma-qr`
 - `POST /api/koma-status`
 - success and cancelled routes
@@ -21,4 +21,4 @@ Use these pages first:
 - [PI Integration Reference](./pi-integration.md)
 - [Example Apps](./example-apps.md)
 
-The Python page is not a first-class implemented package runtime today. It is a custom backend integration path and will stay marked as coming soon until the guide is completed properly.
+Laravel is not a first-class implemented package runtime today. It is a custom backend integration path and is intentionally marked as coming soon for now.

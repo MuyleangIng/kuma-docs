@@ -9,9 +9,9 @@ import Link from "next/link";
 import { CodeBlock } from "@/components/code-block";
 
 const DOCS_DIR = path.join(process.cwd(), "content", "docs");
-const GITHUB_BLOB_BASE = "https://github.com/KhmerStack/koma-khqr/blob/main/";
+const PUBLIC_DOCS_BLOB_BASE = "https://github.com/MuyleangIng/kuma-docs/blob/main/";
 
-export type DocGroupId = "overview" | "frameworks" | "ecosystems" | "reference";
+export type DocGroupId = "overview" | "ecosystems" | "reference";
 
 export interface DocEntry {
   slug: string;
@@ -23,6 +23,7 @@ export interface DocEntry {
   runtime?: string;
   examplePath?: string;
   structure?: string;
+  status?: "available" | "coming-soon";
 }
 
 export interface DocGroup {
@@ -77,14 +78,9 @@ export const DOC_GROUPS = [
     description: "Architecture, support, and testing guides for the whole package.",
   },
   {
-    id: "frameworks" as const,
-    title: "Framework Guides",
-    description: "Framework-by-framework setup guides and runnable example references.",
-  },
-  {
     id: "ecosystems" as const,
-    title: "Custom Ecosystems",
-    description: "Non-Node server stacks that integrate with Koma through custom backend code.",
+    title: "Ecosystem Guides",
+    description: "Node frameworks plus custom backend ecosystem notes in one place.",
   },
   {
     id: "reference" as const,
@@ -102,6 +98,7 @@ export const DOC_ENTRIES: DocEntry[] = [
     group: "overview",
     entrypoint: "Koma dashboard setup",
     runtime: "Merchant settings and integration credentials",
+    status: "available",
     structure: `Koma Dashboard
   /dashboard
   /dashboard/integrations
@@ -114,11 +111,22 @@ App Env
   KOMA_APP_URL`,
   },
   {
+    slug: "example-apps",
+    fileName: "example-apps.md",
+    title: "Example Apps",
+    description: "Public overview of the example app shapes, test flow, and current availability.",
+    group: "overview",
+    entrypoint: "Public example overview",
+    runtime: "Example layouts and support status",
+    status: "available",
+  },
+  {
     slug: "framework-recipes",
     fileName: "framework-recipes.md",
     title: "Framework Recipes",
     description: "Choose the right package entrypoint and app shape for each supported framework.",
     group: "overview",
+    status: "available",
   },
   {
     slug: "framework-support-checklist",
@@ -126,6 +134,7 @@ App Env
     title: "Framework Support Checklist",
     description: "The release-grade support matrix, runtime floors, and verification state.",
     group: "overview",
+    status: "available",
   },
   {
     slug: "testing-matrix",
@@ -133,6 +142,7 @@ App Env
     title: "Testing Matrix",
     description: "What is build-verified, route-probed, and live-session verified today.",
     group: "overview",
+    status: "available",
   },
   {
     slug: "sandbox-testing",
@@ -140,16 +150,18 @@ App Env
     title: "Sandbox Testing",
     description: "The shared env contract and local sandbox rules used across every example.",
     group: "overview",
+    status: "available",
   },
   {
     slug: "next-typescript",
     fileName: "next-typescript.md",
     title: "Next.js TypeScript",
     description: "Use the first-class Next helpers with App Router and TypeScript.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/next",
     runtime: "Next.js App Router with server route handlers",
-    examplePath: "examples/next-khqr-demo/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `app/
   page.tsx
   api/
@@ -165,10 +177,11 @@ App Env
     fileName: "next-javascript.md",
     title: "Next.js JavaScript",
     description: "Use the same App Router flow in plain JavaScript.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/next",
     runtime: "Next.js App Router with server route handlers",
-    examplePath: "examples/next-khqr-demo/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `app/
   page.js
   api/
@@ -184,10 +197,11 @@ App Env
     fileName: "react.md",
     title: "React",
     description: "Understand the React UI layer and the server runtime it still needs.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/react",
     runtime: "React UI plus a separate server runtime",
-    examplePath: "examples/react/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `src/
   App.jsx
   main.jsx
@@ -198,10 +212,11 @@ server.mjs`,
     fileName: "react-vite-typescript.md",
     title: "React + Vite TypeScript",
     description: "Vite frontend plus Express backend with TypeScript-ready structure.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/react + koma-khqr/express",
     runtime: "Vite frontend plus a small Node backend",
-    examplePath: "examples/react-vite-ts/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `src/
   App.tsx
   main.tsx
@@ -212,10 +227,11 @@ server.mjs`,
     fileName: "react-vite-javascript.md",
     title: "React + Vite JavaScript",
     description: "The same Vite pattern in plain JavaScript.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/react + koma-khqr/express",
     runtime: "Vite frontend plus a small Node backend",
-    examplePath: "examples/react-vite-js/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `src/
   App.jsx
   main.jsx
@@ -226,10 +242,11 @@ server.mjs`,
     fileName: "vue.md",
     title: "Vue",
     description: "Use Vue with a small backend or move to Nuxt for a stronger full-stack fit.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/vue + server runtime",
     runtime: "Vue frontend plus a small Node backend",
-    examplePath: "examples/vue-vite/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `src/
   App.vue
   main.ts
@@ -240,10 +257,11 @@ server.mjs`,
     fileName: "nuxt.md",
     title: "Nuxt",
     description: "Nuxt pages and server routes for a full-stack KHQR integration.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/server",
     runtime: "Nuxt pages plus Nitro server routes",
-    examplePath: "examples/nuxt/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `pages/
   index.vue
   payment/
@@ -261,10 +279,11 @@ server/
     fileName: "express.md",
     title: "Express",
     description: "Ready-made backend endpoints for client-only frontends.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/express",
     runtime: "Standalone Node backend",
-    examplePath: "examples/express/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `public/
   app.js
   styles.css
@@ -275,10 +294,11 @@ server.mjs`,
     fileName: "nest.md",
     title: "NestJS",
     description: "Controller and service layering for a more structured Node backend.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/server",
     runtime: "NestJS controllers and services",
-    examplePath: "examples/nest/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `src/
   main.ts
   pages.controller.ts
@@ -294,10 +314,11 @@ public/
     fileName: "angular.md",
     title: "Angular",
     description: "Angular frontend plus Express or Nest backend for secure signing.",
-    group: "frameworks",
+    group: "ecosystems",
     entrypoint: "koma-khqr/angular + server runtime",
     runtime: "Angular SPA plus a secure backend",
-    examplePath: "examples/angular/README.md",
+    examplePath: "example-apps",
+    status: "available",
     structure: `src/
   app/
     app.routes.ts
@@ -309,10 +330,11 @@ server.mjs`,
     slug: "spring",
     fileName: "spring.md",
     title: "Spring Boot",
-    description: "Use Spring Boot for server-to-server signing, checkout creation, and status polling.",
+    description: "Coming soon: custom Java backend guidance for Koma KHQR.",
     group: "ecosystems",
     entrypoint: "Custom Java backend",
     runtime: "Spring Boot server plus any frontend",
+    status: "coming-soon",
     structure: `src/main/java/com/example/koma/
   config/
     KomaProperties.java
@@ -327,10 +349,11 @@ src/main/resources/
     slug: "python",
     fileName: "python.md",
     title: "Python",
-    description: "Use Python for secure server-side signing and Koma API calls from FastAPI or Flask.",
+    description: "Coming soon: custom Python backend guidance for Koma KHQR.",
     group: "ecosystems",
     entrypoint: "Custom Python backend",
     runtime: "Python API server plus any frontend",
+    status: "coming-soon",
     structure: `app/
   main.py
   settings.py
@@ -340,11 +363,31 @@ templates/
   cancelled.html`,
   },
   {
+    slug: "laravel",
+    fileName: "laravel.md",
+    title: "Laravel",
+    description: "Coming soon: custom PHP / Laravel backend guidance for Koma KHQR.",
+    group: "ecosystems",
+    entrypoint: "Custom PHP backend",
+    runtime: "Laravel server plus any frontend",
+    status: "coming-soon",
+    structure: `app/
+  Http/Controllers/
+    KomaController.php
+  Services/
+    KomaService.php
+resources/views/
+  payment/
+    success.blade.php
+    cancelled.blade.php`,
+  },
+  {
     slug: "pi-integration",
     fileName: "pi-integration.md",
     title: "PI Integration Reference",
     description: "Provider request shape, signing rules, and operational notes.",
     group: "reference",
+    status: "available",
   },
   {
     slug: "webcontainer-sandboxes",
@@ -352,6 +395,7 @@ templates/
     title: "WebContainer Sandboxes",
     description: "How to keep StackBlitz-style sandboxes aligned with the main integration contract.",
     group: "reference",
+    status: "available",
   },
 ];
 
@@ -458,7 +502,7 @@ export function getDocGroup(groupId: DocGroupId) {
 }
 
 export function toGitHubBlobHref(relativePath: string) {
-  return `${GITHUB_BLOB_BASE}${relativePath.replace(/^\//, "")}`;
+  return `${PUBLIC_DOCS_BLOB_BASE}${relativePath.replace(/^\//, "")}`;
 }
 
 export function getDocEntry(slug: string) {
@@ -816,6 +860,16 @@ function resolveMarkdownHref(href: string, currentFilePath: string) {
   if (normalized.startsWith("docs/") && normalized.endsWith(".md")) {
     return {
       href: `/docs/${path.posix.basename(normalized, ".md")}`,
+      external: false,
+      internal: true,
+    };
+  }
+
+  if (normalized.startsWith("examples/")) {
+    const [, exampleName] = normalized.split("/");
+
+    return {
+      href: exampleName ? `/docs/example-apps#${exampleName}` : "/docs/example-apps",
       external: false,
       internal: true,
     };

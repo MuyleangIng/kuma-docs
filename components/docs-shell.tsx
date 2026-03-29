@@ -32,7 +32,7 @@ export function DocsShell({
             </Link>
             <a
               className="site-link"
-              href="https://github.com/KhmerStack/koma-khqr"
+              href="https://github.com/MuyleangIng/kuma-docs"
               rel="noreferrer"
               target="_blank"
             >

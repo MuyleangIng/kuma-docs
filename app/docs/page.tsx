@@ -18,9 +18,9 @@ export default function DocsIndexPage() {
           markdown docs so the content stays in sync.
         </p>
         <div className="docs-pill-row">
-          <span className="docs-pill">8 framework targets</span>
-          <span className="docs-pill">7 npm entrypoints</span>
-          <span className="docs-pill">Spring + Python custom guides</span>
+          <span className="docs-pill">Node ecosystem guides</span>
+          <span className="docs-pill">Custom ecosystem notes</span>
+          <span className="docs-pill">Spring, Python, Laravel coming soon</span>
           <span className="docs-pill">Live session verification complete</span>
         </div>
       </div>
@@ -76,6 +76,11 @@ export default function DocsIndexPage() {
             <span className="docs-detail-label">Custom ecosystems</span>
             <strong className="docs-detail-value">Spring Boot or Python</strong>
             <p className="docs-detail-copy">Use the setup and signing reference guides when your secure backend is outside the npm runtime family.</p>
+          </div>
+          <div className="docs-detail-card">
+            <span className="docs-detail-label">Coming soon</span>
+            <strong className="docs-detail-value">Laravel / PHP</strong>
+            <p className="docs-detail-copy">The ecosystem section now includes placeholder direction pages for non-Node runtimes that are not implemented as package entrypoints yet.</p>
           </div>
         </div>
       </section>
