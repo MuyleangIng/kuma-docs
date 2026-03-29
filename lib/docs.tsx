@@ -6,7 +6,7 @@ import type { ReactNode } from "react";
 
 import Link from "next/link";
 
-const DOCS_DIR = path.join(process.cwd(), "..", "docs");
+const DOCS_DIR = path.join(process.cwd(), "content", "docs");
 const GITHUB_BLOB_BASE = "https://github.com/KhmerStack/koma-khqr/blob/main/";
 
 export type DocGroupId = "overview" | "frameworks" | "reference";

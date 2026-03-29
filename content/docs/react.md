@@ -1,0 +1,37 @@
+# React
+
+`koma-khqr/react` is the UI layer. It renders the KHQR checkout experience, but it does not own your secret key and it does not sign requests in the browser.
+
+## Mental Model
+
+- `koma-khqr/react` = checkout UI
+- `koma-khqr/next` = server routes when React is running inside Next.js
+- `koma-khqr/express` = server routes when React is running in Vite, CRA, or another client-only setup
+- `koma-khqr/server` = lower-level escape hatch if you want custom backend code
+
+## What React Covers
+
+- `KhqrCheckout`
+- `KomaCheckoutForm`
+
+## What Still Needs Server Runtime
+
+- `KOMA_SECRET_KEY`
+- checkout signing
+- Koma API calls
+- polling proxy
+- success and cancelled routes
+
+React can render on the server inside a framework, but React by itself is not a secure payment backend. The Koma secret still belongs on the server.
+
+## Recommended Pairings
+
+- Next.js: [next-typescript.md](./next-typescript.md)
+- React + Vite: [react-vite-typescript.md](./react-vite-typescript.md)
+- Express backend: [express.md](./express.md)
+
+If you are building plain React, use `koma-khqr/react` on the client and pair it with `koma-khqr/express` or your own server implementation.
+
+## Runnable Example
+
+- [examples/react/README.md](../examples/react/README.md)
