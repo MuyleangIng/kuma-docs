@@ -54,7 +54,26 @@ export function DocsShell({
       <div className="docs-layout">
         <DocsSidebar currentSlug={currentSlug} groups={groups} />
 
-        <main className="docs-content-panel">{children}</main>
+        <main className="docs-content-panel">
+          {toc.length > 0 ? (
+            <details className="docs-mobile-toc">
+              <summary>On This Page</summary>
+              <div className="docs-toc-list">
+                {toc.map((item) => (
+                  <a
+                    className={`docs-toc-item level-${item.level}`}
+                    href={`#${item.id}`}
+                    key={item.id}
+                  >
+                    {item.text}
+                  </a>
+                ))}
+              </div>
+            </details>
+          ) : null}
+
+          {children}
+        </main>
 
         <aside className="docs-toc">
           <h2>On This Page</h2>
