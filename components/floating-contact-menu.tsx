@@ -2,23 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const CONTACT_ITEMS = [
-  {
-    href: "tel:+85500000000",
-    icon: "📞",
-    label: "Call",
-  },
-  {
-    href: "mailto:support@example.com?subject=Koma%20Docs%20Support",
-    icon: "💬",
-    label: "Support",
-  },
-  {
-    href: "https://t.me/example",
-    icon: "✈️",
-    label: "Telegram",
-  },
-] as const;
+import { CONTACT_ITEMS } from "@/lib/contact";
 
 export function FloatingContactMenu() {
   const [open, setOpen] = useState(false);
