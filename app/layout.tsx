@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { FloatingContactMenu } from "@/components/floating-contact-menu";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { ThemeScript } from "@/components/theme-script";
 
 import "./globals.css";
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body>
         <ThemeScript />
         {children}
+        <MobileBottomNav />
         <FloatingContactMenu />
       </body>
     </html>
