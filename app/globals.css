@@ -308,21 +308,59 @@ html[data-theme="light"] .mobile-bottom-nav-icon {
 }
 
 .theme-toggle {
-  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 42px;
-  padding: 0 14px;
+  justify-content: center;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface-soft);
   color: var(--text);
   font: inherit;
   cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease,
+    opacity 220ms ease;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  border-color: var(--primary-soft);
+  background: var(--surface-soft-strong);
+  box-shadow: var(--shadow-soft);
+}
+
+.theme-toggle-navbar {
+  display: inline-flex;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 14px;
+}
+
+.theme-toggle-fab {
+  position: fixed;
+  right: 16px;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mobile-dock-height) + 18px);
+  z-index: 45;
+  display: none;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 999px;
+  background: var(--surface-glass);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
 }
 
 .theme-toggle-icon {
   font-size: 15px;
+}
+
+.theme-toggle-fab .theme-toggle-icon {
+  font-size: 24px;
+  line-height: 1;
 }
 
 .theme-toggle-label {
@@ -1461,6 +1499,18 @@ html[data-theme="light"] .docs-article code {
   }
 }
 
+@keyframes theme-fab-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 1180px) {
   .docs-layout {
     grid-template-columns: minmax(240px, 280px) minmax(0, 1fr);
@@ -1531,7 +1581,7 @@ html[data-theme="light"] .docs-article code {
   }
 
   .site-link,
-  .theme-toggle {
+  .theme-toggle-navbar {
     width: 100%;
     justify-content: center;
   }
@@ -1720,14 +1770,13 @@ html[data-theme="light"] .docs-article code {
     display: none;
   }
 
-  .theme-toggle {
-    min-height: 42px;
-    min-width: 42px;
-    padding: 0 12px;
+  .theme-toggle-navbar {
+    display: none;
   }
 
-  .theme-toggle-label {
-    display: none;
+  .theme-toggle-fab {
+    display: inline-flex;
+    animation: theme-fab-enter 220ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .docs-content-panel {
@@ -1835,6 +1884,7 @@ html[data-theme="light"] .docs-article code {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .theme-toggle-fab,
   .mobile-bottom-nav-item,
   .mobile-sheet,
   .mobile-sheet-backdrop,
