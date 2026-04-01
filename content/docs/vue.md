@@ -53,7 +53,105 @@ This gives you:
 If you want a stronger first-class Vue integration, prefer Nuxt:
 [nuxt.md](./nuxt.md)
 
-Runnable example:
+## Deploy
+
+### Vercel
+
+Add `vercel.json` at the project root:
+
+```json
+{
+  "rewrites": [
+    { "source": "/api/koma-checkout", "destination": "/api/koma?type=checkout" },
+    { "source": "/api/koma-qr",       "destination": "/api/koma?type=qr"       },
+    { "source": "/api/koma-status",   "destination": "/api/koma?type=status"   },
+    { "source": "/payment/success",   "destination": "/"                        },
+    { "source": "/payment/cancelled", "destination": "/"                        }
+  ]
+}
+```
+
+Add `api/koma.js` (Vercel serverless function). See `examples/vue-vite/api/koma.js`.
+
+Set `KOMA_API_URL`, `KOMA_MERCHANT_ID`, `KOMA_SECRET_KEY` in Vercel project settings.
+
+### Netlify
+
+Add `netlify.toml`:
+
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/koma-checkout"
+  to   = "/.netlify/functions/koma?type=checkout"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from = "/api/koma-qr"
+  to   = "/.netlify/functions/koma?type=qr"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from = "/api/koma-status"
+  to   = "/.netlify/functions/koma?type=status"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200
+```
+
+Add `netlify/functions/koma.mjs`. See `examples/vue-vite/netlify/functions/koma.mjs`.
+
+Set `KOMA_API_URL`, `KOMA_MERCHANT_ID`, `KOMA_SECRET_KEY` in Netlify site environment variables.
+
+### Docker
+
+Add a `Dockerfile`:
+
+```dockerfile
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+
+FROM deps AS build
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production PORT=3000
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+COPY server.mjs ./
+COPY --from=build /app/dist ./dist
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+`npm start` runs `node server.mjs` which serves the built Vue app and exposes the koma API. Pass env vars at runtime:
+
+```bash
+docker build -t my-app .
+docker run -p 3000:3000 \
+  -e KOMA_API_URL=... \
+  -e KOMA_MERCHANT_ID=... \
+  -e KOMA_SECRET_KEY=... \
+  my-app
+```
+
+## Runnable Example
 
 - start with [First Setup](./first-setup.md) if you still need merchant credentials
 - runnable in-repo example: `examples/vue-vite`

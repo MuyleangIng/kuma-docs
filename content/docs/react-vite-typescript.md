@@ -80,6 +80,111 @@ app.use(
 - `createKomaExpress()` gives you the KHQR API routes
 - your frontend owns `/payment/success` and `/payment/cancelled`
 
+## Deploy
+
+### Vercel
+
+Add `vercel.json` at the project root:
+
+```json
+{
+  "rewrites": [
+    { "source": "/api/koma-checkout", "destination": "/api/koma?type=checkout" },
+    { "source": "/api/koma-qr",       "destination": "/api/koma?type=qr"       },
+    { "source": "/api/koma-status",   "destination": "/api/koma?type=status"   },
+    { "source": "/payment/success",   "destination": "/"                        },
+    { "source": "/payment/cancelled", "destination": "/"                        }
+  ]
+}
+```
+
+Add `api/koma.js` (Vercel serverless function) that imports from `koma-khqr/next` and dispatches by `?type=`. See `examples/react-vite-ts/api/koma.js`.
+
+Set these environment variables in your Vercel project settings:
+
+```
+KOMA_API_URL
+KOMA_MERCHANT_ID
+KOMA_SECRET_KEY
+```
+
+`KOMA_APP_URL` is optional — Vercel sets `VERCEL_URL` automatically.
+
+### Netlify
+
+Add `netlify.toml` at the project root:
+
+```toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/koma-checkout"
+  to   = "/.netlify/functions/koma?type=checkout"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from = "/api/koma-qr"
+  to   = "/.netlify/functions/koma?type=qr"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from = "/api/koma-status"
+  to   = "/.netlify/functions/koma?type=status"
+  status = 200
+  force  = true
+
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200
+```
+
+Add `netlify/functions/koma.mjs` using the Netlify event handler shape. See `examples/react-vite-ts/netlify/functions/koma.mjs`.
+
+Set `KOMA_API_URL`, `KOMA_MERCHANT_ID`, `KOMA_SECRET_KEY` in Netlify site environment variables.
+
+### Docker
+
+Add a `Dockerfile`:
+
+```dockerfile
+FROM node:20-alpine AS deps
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci
+
+FROM deps AS build
+COPY . .
+RUN npm run build
+
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production PORT=3000
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
+COPY --from=build /app/dist ./dist
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+`npm start` runs `serve -s dist -l 3000`. Pass env vars at runtime:
+
+```bash
+docker build -t my-app .
+docker run -p 3000:3000 \
+  -e KOMA_API_URL=... \
+  -e KOMA_MERCHANT_ID=... \
+  -e KOMA_SECRET_KEY=... \
+  my-app
+```
+
 ## Reference
 
 - start with [First Setup](./first-setup.md) if you still need merchant credentials
