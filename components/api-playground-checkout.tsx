@@ -50,7 +50,7 @@ export function ApiPlaygroundCheckout() {
   const [responseHTML, setResponseHTML] = useState("");
   const [responseError, setResponseError] = useState("");
 
-  function set(key: keyof CheckoutFields, value: string) {
+  function setField(key: keyof CheckoutFields, value: string) {
     setFields((prev) => ({ ...prev, [key]: value }));
     setHash("");
     setHashError("");
@@ -61,11 +61,13 @@ export function ApiPlaygroundCheckout() {
       setHashError("Secret Key, Merchant ID, and Amount are required to generate the hash.");
       return;
     }
+
     setStatus("hashing");
     setHashError("");
+
     try {
-      const h = await computeHash(fields);
-      setHash(h);
+      const nextHash = await computeHash(fields);
+      setHash(nextHash);
       setStatus("idle");
     } catch {
       setHashError("Hash generation failed. Check your Secret Key.");
@@ -78,13 +80,16 @@ export function ApiPlaygroundCheckout() {
       setResponseError("Enter your API base URL first.");
       return;
     }
+
     if (!hash) {
       setResponseError("Generate the hash first before sending.");
       return;
     }
+
     setStatus("loading");
     setResponseHTML("");
     setResponseError("");
+
     try {
       const fd = new FormData();
       fd.append("amount", fields.amount);
@@ -95,10 +100,11 @@ export function ApiPlaygroundCheckout() {
       if (fields.returnURL) fd.append("returnURL", fields.returnURL);
       if (fields.continueSuccessURL) fd.append("continueSuccessURL", fields.continueSuccessURL);
 
-      const url = fields.baseURL.replace(/\/$/, "") + "/api/payment/checkout";
+      const url = `${fields.baseURL.replace(/\/$/, "")}/api/payment/checkout`;
       const res = await fetch(url, { method: "POST", body: fd });
-      const ct = res.headers.get("content-type") ?? "";
-      if (ct.includes("text/html")) {
+      const contentType = res.headers.get("content-type") ?? "";
+
+      if (contentType.includes("text/html")) {
         const html = await res.text();
         setResponseHTML(html);
         setStatus("done");
@@ -107,15 +113,14 @@ export function ApiPlaygroundCheckout() {
         setResponseError(`HTTP ${res.status} — ${text}`);
         setStatus("error");
       }
-    } catch (err) {
-      setResponseError(err instanceof Error ? err.message : "Network error");
+    } catch (error) {
+      setResponseError(error instanceof Error ? error.message : "Network error");
       setStatus("error");
     }
   }
 
   return (
     <div className="api-pg">
-      {/* ── Endpoint badge ── */}
       <div className="api-pg-endpoint">
         <span className="api-pg-method">POST</span>
         <span className="api-pg-path">/api/payment/checkout</span>
@@ -123,7 +128,6 @@ export function ApiPlaygroundCheckout() {
       </div>
 
       <div className="api-pg-body">
-        {/* ── Left: form ── */}
         <div className="api-pg-form">
           <fieldset className="api-pg-fieldset">
             <legend className="api-pg-legend">Connection</legend>
@@ -134,7 +138,7 @@ export function ApiPlaygroundCheckout() {
                 placeholder="https://your-app.com"
                 type="url"
                 value={fields.baseURL}
-                onChange={(e) => set("baseURL", e.target.value)}
+                onChange={(event) => setField("baseURL", event.target.value)}
               />
             </label>
           </fieldset>
@@ -148,7 +152,7 @@ export function ApiPlaygroundCheckout() {
                 placeholder="your_merchant_id"
                 type="text"
                 value={fields.merchantId}
-                onChange={(e) => set("merchantId", e.target.value)}
+                onChange={(event) => setField("merchantId", event.target.value)}
               />
             </label>
             <label className="api-pg-label">
@@ -158,9 +162,11 @@ export function ApiPlaygroundCheckout() {
                 placeholder="sk_••••••••"
                 type="password"
                 value={fields.secretKey}
-                onChange={(e) => set("secretKey", e.target.value)}
+                onChange={(event) => setField("secretKey", event.target.value)}
               />
-              <span className="api-pg-hint">Used only in-browser to compute the HMAC. Never sent to any server.</span>
+              <span className="api-pg-hint">
+                Used only in-browser to compute the HMAC. Never sent to any server.
+              </span>
             </label>
           </fieldset>
 
@@ -175,7 +181,7 @@ export function ApiPlaygroundCheckout() {
                 step="0.01"
                 type="number"
                 value={fields.amount}
-                onChange={(e) => set("amount", e.target.value)}
+                onChange={(event) => setField("amount", event.target.value)}
               />
             </label>
             <label className="api-pg-label">
@@ -183,7 +189,7 @@ export function ApiPlaygroundCheckout() {
               <select
                 className="api-pg-select"
                 value={fields.currency}
-                onChange={(e) => set("currency", e.target.value)}
+                onChange={(event) => setField("currency", event.target.value)}
               >
                 <option value="USD">USD</option>
                 <option value="KHR">KHR</option>
@@ -196,7 +202,7 @@ export function ApiPlaygroundCheckout() {
                 placeholder="TXN_1234567890"
                 type="text"
                 value={fields.tranID}
-                onChange={(e) => set("tranID", e.target.value)}
+                onChange={(event) => setField("tranID", event.target.value)}
               />
             </label>
           </fieldset>
@@ -210,7 +216,7 @@ export function ApiPlaygroundCheckout() {
                 placeholder="https://your-app.com/payment/cancelled"
                 type="url"
                 value={fields.returnURL}
-                onChange={(e) => set("returnURL", e.target.value)}
+                onChange={(event) => setField("returnURL", event.target.value)}
               />
             </label>
             <label className="api-pg-label">
@@ -220,12 +226,11 @@ export function ApiPlaygroundCheckout() {
                 placeholder="https://your-app.com/payment/success"
                 type="url"
                 value={fields.continueSuccessURL}
-                onChange={(e) => set("continueSuccessURL", e.target.value)}
+                onChange={(event) => setField("continueSuccessURL", event.target.value)}
               />
             </label>
           </fieldset>
 
-          {/* ── Hash panel ── */}
           <div className="api-pg-hash-panel">
             <div className="api-pg-hash-header">
               <span className="api-pg-hash-label">HMAC-SHA512 Hash</span>
@@ -238,6 +243,7 @@ export function ApiPlaygroundCheckout() {
                 {status === "hashing" ? "Generating…" : "Generate hash"}
               </button>
             </div>
+
             {hashError ? (
               <p className="api-pg-error-inline">{hashError}</p>
             ) : hash ? (
@@ -257,29 +263,32 @@ export function ApiPlaygroundCheckout() {
           </button>
         </div>
 
-        {/* ── Right: response ── */}
         <div className="api-pg-response">
           <div className="api-pg-response-header">
             <span className="api-pg-response-label">Response</span>
-            {status === "done" && <span className="api-pg-status-badge api-pg-status-ok">200 OK · text/html</span>}
-            {status === "error" && <span className="api-pg-status-badge api-pg-status-err">Error</span>}
+            {status === "done" ? (
+              <span className="api-pg-status-badge api-pg-status-ok">200 OK · text/html</span>
+            ) : null}
+            {status === "error" ? (
+              <span className="api-pg-status-badge api-pg-status-err">Error</span>
+            ) : null}
           </div>
 
-          {status === "idle" && (
+          {status === "idle" ? (
             <div className="api-pg-response-empty">
               <span className="api-pg-response-empty-icon">▷</span>
               <p>Fill the form and send the request to see the live KHQR checkout page here.</p>
             </div>
-          )}
+          ) : null}
 
-          {status === "loading" && (
+          {status === "loading" ? (
             <div className="api-pg-response-empty">
               <span className="api-pg-response-empty-icon api-pg-spin">◌</span>
               <p>Waiting for response…</p>
             </div>
-          )}
+          ) : null}
 
-          {status === "done" && responseHTML && (
+          {status === "done" && responseHTML ? (
             <div className="api-pg-iframe-wrap">
               <iframe
                 className="api-pg-iframe"
@@ -288,13 +297,13 @@ export function ApiPlaygroundCheckout() {
                 title="KHQR Checkout Preview"
               />
             </div>
-          )}
+          ) : null}
 
-          {(status === "error") && responseError && (
+          {status === "error" && responseError ? (
             <div className="api-pg-response-err-body">
               <pre className="api-pg-response-pre">{responseError}</pre>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

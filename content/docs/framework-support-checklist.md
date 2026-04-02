@@ -2,7 +2,7 @@
 
 This is the current implementation and verification checklist for `koma-khqr`.
 
-The counts in this file cover the implemented Node-family targets only. Spring Boot, Python, PHP, and Laravel recipe docs exist, but they are custom backend guides and are not counted as implemented package runtimes.
+The counts in this file cover the implemented Node-family targets only. PHP and Laravel recipe docs exist, but they are custom backend guides and are not counted as implemented package runtimes.
 
 Legacy sandboxes that are not part of the current support matrix are excluded from this document.
 
@@ -36,8 +36,6 @@ Legacy sandboxes that are not part of the current support matrix are excluded fr
 
 ## Custom Backend Ecosystem Notes
 
-- Spring Boot: custom backend recipe docs available
-- Python overview, FastAPI, Flask, and Django recipe docs available
 - PHP and Laravel recipe docs available
 - these recipe pages are not counted in the `8` implemented framework targets above
 

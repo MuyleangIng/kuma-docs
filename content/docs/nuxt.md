@@ -68,4 +68,3 @@ Runnable example:
 
 - start with [First Setup](./first-setup.md) if you still need merchant credentials
 - runnable in-repo example: `examples/nuxt`
-- public overview: [Example Apps](./example-apps.md)

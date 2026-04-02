@@ -146,11 +146,6 @@ server.mjs
 
 These stacks now have implementation recipe pages with concrete file layouts and code snippets, but they are not runnable in-repo package examples:
 
-- Spring Boot: [spring.md](./spring.md)
-- Python overview: [python.md](./python.md)
-- FastAPI: [fastapi.md](./fastapi.md)
-- Flask: [flask.md](./flask.md)
-- Django: [django.md](./django.md)
 - PHP: [php.md](./php.md)
 - Laravel: [laravel.md](./laravel.md)
 

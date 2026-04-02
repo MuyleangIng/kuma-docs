@@ -17,13 +17,11 @@ export default function DocsIndexPage() {
           pages, then deeper reference material. Everything here is backed by the existing root
           markdown docs so the content stays in sync.
         </p>
-            <div className="docs-pill-row">
-              <span className="docs-pill">Node ecosystem guides</span>
-              <span className="docs-pill">Java recipe pages</span>
-              <span className="docs-pill">Python recipe pages</span>
-              <span className="docs-pill">PHP and Laravel recipes</span>
-              <span className="docs-pill">Live session verification complete</span>
-            </div>
+        <div className="docs-pill-row">
+          <span className="docs-pill">Node ecosystem guides</span>
+          <span className="docs-pill">PHP and Laravel recipes</span>
+          <span className="docs-pill">Live session verification complete</span>
+        </div>
       </div>
 
       <div className="docs-split">
@@ -74,12 +72,7 @@ export default function DocsIndexPage() {
             <p className="docs-detail-copy">Use the server adapter directly when you want to plug KHQR into an existing Node backend.</p>
           </div>
           <div className="docs-detail-card">
-            <span className="docs-detail-label">Custom ecosystems</span>
-            <strong className="docs-detail-value">Spring Boot and Python</strong>
-            <p className="docs-detail-copy">Use the new recipe pages when your secure backend is outside the npm runtime family.</p>
-          </div>
-          <div className="docs-detail-card">
-            <span className="docs-detail-label">PHP</span>
+            <span className="docs-detail-label">Custom backend</span>
             <strong className="docs-detail-value">PHP or Laravel</strong>
             <p className="docs-detail-copy">The docs now include custom backend recipes for plain PHP and Laravel, separate from the package runtime support matrix.</p>
           </div>

@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 type StatusFields = {
-  baseURL: string;
   md5: string;
   pollToken: string;
 };
@@ -35,7 +34,6 @@ function getResponseLabel(data: StatusResponse["data"] | null): {
 
 export function ApiPlaygroundStatus() {
   const [fields, setFields] = useState<StatusFields>({
-    baseURL: "",
     md5: "",
     pollToken: "",
   });
@@ -44,13 +42,17 @@ export function ApiPlaygroundStatus() {
   const [rawError, setRawError] = useState("");
   const [httpStatus, setHttpStatus] = useState<number | null>(null);
 
-  function set(key: keyof StatusFields, value: string) {
+  function setField(key: keyof StatusFields, value: string) {
     setFields((prev) => ({ ...prev, [key]: value }));
+    setResponse(null);
+    setRawError("");
+    setHttpStatus(null);
+    setStatus("idle");
   }
 
   async function handleSend() {
-    if (!fields.baseURL || !fields.md5 || !fields.pollToken) {
-      setRawError("All three fields are required.");
+    if (!fields.md5 || !fields.pollToken) {
+      setRawError("md5 and pollToken are required.");
       setStatus("error");
       return;
     }
@@ -59,8 +61,7 @@ export function ApiPlaygroundStatus() {
     setRawError("");
     setHttpStatus(null);
     try {
-      const url = fields.baseURL.replace(/\/$/, "") + "/api/payment/status";
-      const res = await fetch(url, {
+      const res = await fetch("/api/koma-status", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ md5: fields.md5, pollToken: fields.pollToken }),
@@ -84,53 +85,38 @@ export function ApiPlaygroundStatus() {
 
   return (
     <div className="api-pg">
-      {/* ── Endpoint badge ── */}
       <div className="api-pg-endpoint">
         <span className="api-pg-method">POST</span>
-        <span className="api-pg-path">/api/payment/status</span>
+        <span className="api-pg-path">/api/koma-status</span>
         <span className="api-pg-ct">application/json</span>
       </div>
 
       <div className="api-pg-body api-pg-body-narrow">
-        {/* ── Left: form ── */}
         <div className="api-pg-form">
-          <fieldset className="api-pg-fieldset">
-            <legend className="api-pg-legend">Connection</legend>
-            <label className="api-pg-label">
-              Base URL
-              <input
-                className="api-pg-input"
-                placeholder="https://your-app.com"
-                type="url"
-                value={fields.baseURL}
-                onChange={(e) => set("baseURL", e.target.value)}
-              />
-            </label>
-          </fieldset>
-
           <fieldset className="api-pg-fieldset">
             <legend className="api-pg-legend">Request Body</legend>
             <label className="api-pg-label">
               md5 <span className="api-pg-required">required</span>
               <input
                 className="api-pg-input"
-                placeholder="MD5 hex from checkout session"
+                placeholder="MD5 from checkout response"
                 type="text"
                 value={fields.md5}
-                onChange={(e) => set("md5", e.target.value)}
+                onChange={(e) => setField("md5", e.target.value)}
               />
-              <span className="api-pg-hint">The MD5 hash issued with the checkout session HTML.</span>
             </label>
             <label className="api-pg-label">
               pollToken <span className="api-pg-required">required</span>
               <input
                 className="api-pg-input"
-                placeholder="Poll token from checkout session"
+                placeholder="pollToken from checkout response"
                 type="text"
                 value={fields.pollToken}
-                onChange={(e) => set("pollToken", e.target.value)}
+                onChange={(e) => setField("pollToken", e.target.value)}
               />
-              <span className="api-pg-hint">Expires 15 minutes after checkout session creation.</span>
+              <span className="api-pg-hint">
+                This tester sends through the local Next.js SDK status route.
+              </span>
             </label>
           </fieldset>
 
@@ -150,57 +136,58 @@ export function ApiPlaygroundStatus() {
 
           <button
             className="api-pg-btn api-pg-btn-primary"
-            disabled={status === "loading" || !fields.baseURL || !fields.md5 || !fields.pollToken}
+            disabled={status === "loading" || !fields.md5 || !fields.pollToken}
             type="button"
             onClick={handleSend}
           >
-            {status === "loading" ? "Checking…" : "Check status →"}
+            {status === "loading" ? "Checking…" : "Check status"}
           </button>
         </div>
 
-        {/* ── Right: response ── */}
         <div className="api-pg-response">
           <div className="api-pg-response-header">
             <span className="api-pg-response-label">Response</span>
-            {httpStatus !== null && (
-              <span className={`api-pg-status-badge ${httpStatus < 400 ? "api-pg-status-ok" : "api-pg-status-err"}`}>
+            {httpStatus !== null ? (
+              <span
+                className={`api-pg-status-badge ${
+                  httpStatus < 400 ? "api-pg-status-ok" : "api-pg-status-err"
+                }`}
+              >
                 HTTP {httpStatus}
               </span>
-            )}
-            {responseLabel && (
-              <span
-                className={`api-pg-state-pill api-pg-state-${responseLabel.kind}`}
-              >
+            ) : null}
+            {responseLabel ? (
+              <span className={`api-pg-state-pill api-pg-state-${responseLabel.kind}`}>
                 {responseLabel.label}
               </span>
-            )}
+            ) : null}
           </div>
 
-          {status === "idle" && (
+          {status === "idle" ? (
             <div className="api-pg-response-empty">
               <span className="api-pg-response-empty-icon">▷</span>
-              <p>Enter the md5 and pollToken from your checkout session, then send.</p>
+              <p>Enter md5 and pollToken from the checkout response, then send.</p>
             </div>
-          )}
+          ) : null}
 
-          {status === "loading" && (
+          {status === "loading" ? (
             <div className="api-pg-response-empty">
               <span className="api-pg-response-empty-icon api-pg-spin">◌</span>
-              <p>Polling Bakong…</p>
+              <p>Calling the local SDK status route…</p>
             </div>
-          )}
+          ) : null}
 
-          {status === "done" && response && (
+          {status === "done" && response ? (
             <pre className="api-pg-response-pre api-pg-response-pre-scroll">
               {JSON.stringify(response, null, 2)}
             </pre>
-          )}
+          ) : null}
 
-          {status === "error" && rawError && (
+          {status === "error" && rawError ? (
             <div className="api-pg-response-err-body">
               <pre className="api-pg-response-pre">{rawError}</pre>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

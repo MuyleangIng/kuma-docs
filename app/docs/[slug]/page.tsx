@@ -78,19 +78,14 @@ export default async function DocPage({
 
         <div className="docs-action-row">
           {parsed.entry.examplePath ? (
-            <>
-              <a
-                className="docs-action-button docs-action-primary"
-                href={toGitHubTreeHref(parsed.entry.examplePath)}
-                rel="noreferrer"
-                target="_blank"
-              >
-                View example source
-              </a>
-              <Link className="docs-action-button" href="/docs/example-apps">
-                View example overview
-              </Link>
-            </>
+            <a
+              className="docs-action-button docs-action-primary"
+              href={toGitHubTreeHref(parsed.entry.examplePath)}
+              rel="noreferrer"
+              target="_blank"
+            >
+              View example source
+            </a>
           ) : null}
           <a
             className="docs-action-button"
@@ -125,12 +120,12 @@ export default async function DocPage({
             <div className="docs-detail-card">
               <span className="docs-detail-label">Quick Test</span>
               <strong className="docs-detail-value">
-                {parsed.entry.status === "coming-soon" ? "Guide only for now" : "Public example overview"}
+                {parsed.entry.status === "coming-soon" ? "Guide only for now" : "Example source available"}
               </strong>
               <p className="docs-detail-copy">
                 {parsed.entry.status === "coming-soon"
                   ? "This ecosystem page is directional and intentionally marked as coming soon."
-                  : "Use the example overview page for the public structure and testing shape."}
+                  : "Open the public example source to inspect the file layout and test shape."}
               </p>
             </div>
           ) : null}

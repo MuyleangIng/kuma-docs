@@ -110,4 +110,3 @@ Recommended paths:
 - the full flow should include checkout, polling, success, and cancelled pages
 - start with [First Setup](./first-setup.md) if you still need merchant credentials
 - runnable in-repo example: `examples/next-khqr-demo`
-- public overview: [Example Apps](./example-apps.md)

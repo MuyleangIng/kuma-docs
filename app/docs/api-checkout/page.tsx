@@ -67,8 +67,8 @@ export default function ApiCheckoutPage() {
           </li>
           <li>
             <strong>Render the response HTML.</strong> On HTTP 200 the body is a complete,
-            self-contained HTML checkout page. Stream or echo it directly to the customer's browser —
-            no further requests needed.
+            self-contained HTML checkout page. Stream or echo it directly to the customer's browser
+            — no further requests needed.
           </li>
           <li>
             <strong>Customer scans &amp; pays.</strong> The checkout page polls for payment
@@ -152,7 +152,8 @@ export default function ApiCheckoutPage() {
         </pre>
         <p>
           <strong>Always generate the hash server-side</strong> to keep your Secret Key private.
-          The Try It playground below computes it in-browser for convenience — never do this in production client code.
+          The Try It playground below computes it in-browser for convenience — never do this in
+          production client code.
         </p>
 
         {/* ── Responses ── */}
@@ -230,9 +231,9 @@ export default function ApiCheckoutPage() {
           <strong>Never expose your Secret Key</strong> in client-side code or public repositories.
           Always generate the hash on your server before sending the checkout request.
         </div>
+
       </article>
 
-      {/* ── Interactive playground ── */}
       <section id="playground" className="api-pg-section">
         <div className="docs-section-head">
           <p className="docs-section-label">Interactive</p>

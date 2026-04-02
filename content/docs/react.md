@@ -46,4 +46,3 @@ If you are building plain React, use `koma-khqr/react` on the client and pair it
 
 - start with [First Setup](./first-setup.md) if you still need merchant credentials
 - runnable in-repo example: `examples/react`
-- public overview: [Example Apps](./example-apps.md)

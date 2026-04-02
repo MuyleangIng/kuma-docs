@@ -12,7 +12,7 @@ const DOCS_DIR = path.join(process.cwd(), "content", "docs");
 const PUBLIC_DOCS_BLOB_BASE = "https://github.com/MuyleangIng/kuma-docs/blob/main/";
 const PUBLIC_DOCS_TREE_BASE = "https://github.com/MuyleangIng/kuma-docs/tree/main/";
 
-export type DocGroupId = "overview" | "node" | "java" | "python" | "php" | "reference";
+export type DocGroupId = "overview" | "node" | "php" | "reference";
 
 export interface DocEntry {
   slug: string;
@@ -76,22 +76,12 @@ export const DOC_GROUPS = [
   {
     id: "overview" as const,
     title: "Start Here",
-    description: "Architecture, support, and testing guides for the whole package.",
+    description: "Quick-start setup for the package.",
   },
   {
     id: "node" as const,
     title: "Node",
     description: "Frameworks and runtimes with first-class package support.",
-  },
-  {
-    id: "java" as const,
-    title: "Java",
-    description: "Custom backend recipes for Spring Boot integrations.",
-  },
-  {
-    id: "python" as const,
-    title: "Python",
-    description: "Custom backend recipes for FastAPI, Flask, and Django.",
   },
   {
     id: "php" as const,
@@ -125,48 +115,6 @@ App Env
   KOMA_MERCHANT_ID
   KOMA_SECRET_KEY
   KOMA_APP_URL`,
-  },
-  {
-    slug: "example-apps",
-    fileName: "example-apps.md",
-    title: "Example Apps",
-    description: "Public overview of the example app shapes, test flow, and current availability.",
-    group: "overview",
-    entrypoint: "Public example overview",
-    runtime: "Example layouts and support status",
-    status: "available",
-  },
-  {
-    slug: "framework-recipes",
-    fileName: "framework-recipes.md",
-    title: "Framework Recipes",
-    description: "Choose the right package entrypoint and app shape for each supported framework.",
-    group: "overview",
-    status: "available",
-  },
-  {
-    slug: "framework-support-checklist",
-    fileName: "framework-support-checklist.md",
-    title: "Framework Support Checklist",
-    description: "The release-grade support matrix, runtime floors, and verification state.",
-    group: "overview",
-    status: "available",
-  },
-  {
-    slug: "testing-matrix",
-    fileName: "testing-matrix.md",
-    title: "Testing Matrix",
-    description: "What is build-verified, route-probed, and live-session verified today.",
-    group: "overview",
-    status: "available",
-  },
-  {
-    slug: "sandbox-testing",
-    fileName: "sandbox-testing.md",
-    title: "Sandbox Testing",
-    description: "The shared env contract and local sandbox rules used across every example.",
-    group: "overview",
-    status: "available",
   },
   {
     slug: "next-typescript",
@@ -343,98 +291,6 @@ public/
 server.mjs`,
   },
   {
-    slug: "spring",
-    fileName: "spring.md",
-    title: "Spring Boot",
-    description: "Custom Java backend recipe with Spring MVC endpoints and a signing service.",
-    group: "java",
-    entrypoint: "Custom Java backend",
-    runtime: "Spring Boot server plus any frontend",
-    examplePath: "examples/spring-boot",
-    status: "available",
-    structure: `src/main/java/com/example/koma/
-  config/
-    KomaProperties.java
-  service/
-    KomaService.java
-  web/
-    KomaController.java
-src/main/resources/
-  application.properties`,
-  },
-  {
-    slug: "python",
-    fileName: "python.md",
-    title: "Python Overview",
-    description: "Choose the right Python backend shape before you implement FastAPI, Flask, or Django.",
-    group: "python",
-    entrypoint: "Custom Python backend",
-    runtime: "Python API server plus any frontend",
-    status: "available",
-    structure: `app/
-  main.py
-  settings.py
-  koma.py
-templates/
-  success.html
-  cancelled.html`,
-  },
-  {
-    slug: "fastapi",
-    fileName: "fastapi.md",
-    title: "FastAPI",
-    description: "Custom Python backend recipe with typed request models and async route handlers.",
-    group: "python",
-    entrypoint: "Custom FastAPI backend",
-    runtime: "FastAPI server plus any frontend",
-    examplePath: "examples/fastapi",
-    status: "available",
-    structure: `app/
-  main.py
-  schemas.py
-  settings.py
-  koma_service.py`,
-  },
-  {
-    slug: "flask",
-    fileName: "flask.md",
-    title: "Flask",
-    description: "Custom Python backend recipe with lightweight routes and explicit env loading.",
-    group: "python",
-    entrypoint: "Custom Flask backend",
-    runtime: "Flask server plus any frontend",
-    examplePath: "examples/flask",
-    status: "available",
-    structure: `app.py
-config.py
-koma_service.py
-templates/
-  success.html
-  cancelled.html`,
-  },
-  {
-    slug: "django",
-    fileName: "django.md",
-    title: "Django",
-    description: "Custom Python backend recipe using Django views, urls, and settings.",
-    group: "python",
-    entrypoint: "Custom Django backend",
-    runtime: "Django server plus any frontend",
-    examplePath: "examples/django",
-    status: "available",
-    structure: `project/
-  settings.py
-  urls.py
-payments/
-  urls.py
-  views.py
-  services.py
-templates/
-  payment/
-    success.html
-    cancelled.html`,
-  },
-  {
     slug: "php",
     fileName: "php.md",
     title: "PHP",
@@ -516,18 +372,6 @@ resources/views/
 ];
 
 const DOC_ENTRY_BY_SLUG = new Map(DOC_ENTRIES.map((entry) => [entry.slug, entry]));
-const EXAMPLE_DOC_ANCHOR_MAP = new Map<string, string>([
-  ["next-khqr-demo", "next-js"],
-  ["react", "react"],
-  ["react-vite-ts", "react-vite"],
-  ["react-vite-js", "react-vite"],
-  ["vue-vite", "vue-vite"],
-  ["nuxt", "nuxt"],
-  ["express", "express"],
-  ["nest", "nestjs"],
-  ["angular", "angular"],
-]);
-
 const SCRIPT_KEYWORDS = new Set([
   "as",
   "async",
@@ -997,13 +841,12 @@ function resolveMarkdownHref(href: string, currentFilePath: string) {
   }
 
   if (normalized.startsWith("examples/")) {
-    const [, exampleName] = normalized.split("/");
-    const anchor = exampleName ? EXAMPLE_DOC_ANCHOR_MAP.get(exampleName) : null;
-
     return {
-      href: anchor ? `/docs/example-apps#${anchor}` : "/docs/example-apps",
-      external: false,
-      internal: true,
+      href: path.posix.extname(normalized)
+        ? toGitHubBlobHref(normalized)
+        : toGitHubTreeHref(normalized),
+      external: true,
+      internal: false,
     };
   }
 

@@ -155,4 +155,3 @@ docker run -p 3000:3000 \
 
 - start with [First Setup](./first-setup.md) if you still need merchant credentials
 - runnable in-repo example: `examples/vue-vite`
-- public overview: [Example Apps](./example-apps.md)

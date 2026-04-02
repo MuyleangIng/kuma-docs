@@ -7,7 +7,7 @@ import { DocsShell } from "@/components/docs-shell";
 export const metadata: Metadata = {
   title: "Check Transaction — API Reference",
   description:
-    "Query real-time KHQR payment status using the MD5 hash and poll token. Interactive playground included.",
+    "Query real-time KHQR payment status using the MD5 hash and poll token.",
 };
 
 const TOC = [
@@ -17,7 +17,8 @@ const TOC = [
   { id: "response-codes", level: 2 as const, text: "Response codes" },
   { id: "session-limits", level: 2 as const, text: "Session limits" },
   { id: "best-practices", level: 2 as const, text: "Best practices" },
-  { id: "playground", level: 2 as const, text: "Try it" },
+  { id: "sdk-usage", level: 2 as const, text: "SDK usage" },
+  { id: "api-testing", level: 2 as const, text: "Test API" },
 ];
 
 export default function ApiStatusPage() {
@@ -204,20 +205,26 @@ export default function ApiStatusPage() {
           <li>Implement exponential backoff if you receive HTTP 500 errors — the Bakong network may be briefly unavailable.</li>
           <li>For guaranteed delivery, listen to the <code>postMessage</code> events emitted by the checkout page (see <Link href="/docs/api-webhooks">Webhooks &amp; Events</Link>).</li>
         </ul>
-      </article>
 
-      {/* ── Interactive playground ── */}
-      <section id="playground" className="api-pg-section">
-        <div className="docs-section-head">
-          <p className="docs-section-label">Interactive</p>
-          <h2>Try it — check a transaction</h2>
-          <p className="docs-page-copy" style={{ marginTop: 8 }}>
-            Enter the <code>md5</code> and <code>pollToken</code> from an active checkout session
-            to query the live payment status directly.
-          </p>
+        <h2 id="sdk-usage">SDK usage</h2>
+        <div className="api-ref-callout api-ref-callout-info">
+          <strong>This docs app now uses the same Next.js SDK status route as the real examples.</strong>{" "}
+          The tester below calls <code>/api/koma-status</code>, which maps to{" "}
+          <code>createKomaNext().status(req)</code>.
         </div>
+        <ul>
+          <li>The SDK examples in this repo already wrap provider polling inside your app backend.</li>
+          <li>Use the provider <code>md5</code> and <code>pollToken</code> only in server-side verification or backend-controlled polling.</li>
+          <li>The checkout demo and the status demo now follow the same SDK route pattern.</li>
+        </ul>
+
+        <h2 id="api-testing">Test API</h2>
+        <p>
+          Paste the <code>md5</code> and <code>pollToken</code> values from your checkout response.
+          This tester sends the request through the local <code>/api/koma-status</code> SDK route.
+        </p>
         <ApiPlaygroundStatus />
-      </section>
+      </article>
 
       <nav className="docs-footer-nav">
         <Link className="docs-footer-card" href="/docs/api-webhooks">

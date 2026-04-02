@@ -37,30 +37,19 @@ Use `KOMA_APP_URL` as the standard app URL.
 - Angular: [angular.md](./angular.md)
 - Example overview: [example-apps.md](./example-apps.md)
 
-## Java Recipes
-
-- Spring Boot: [spring.md](./spring.md)
-
-## Python Recipes
-
-- Python overview: [python.md](./python.md)
-- FastAPI: [fastapi.md](./fastapi.md)
-- Flask: [flask.md](./flask.md)
-- Django: [django.md](./django.md)
-
 ## PHP Recipes
 
 - PHP: [php.md](./php.md)
 - Laravel: [laravel.md](./laravel.md)
 - PI integration reference: [pi-integration.md](./pi-integration.md)
 
-These non-Node pages are custom backend recipes. They are useful implementation guides, but they are not first-class package runtimes in this repo.
+These PHP pages are custom backend recipes. They are useful implementation guides, but they are not first-class package runtimes in this repo.
 
 ## Current Status
 
 - all `8` Node-family framework targets have runnable in-repo examples
 - all `8` Node-family framework targets can create a live checkout session with real merchant env
-- Spring Boot, FastAPI, Flask, Django, PHP, and Laravel now have custom backend recipe docs
+- PHP and Laravel have custom backend recipe docs
 - the only remaining manual proof step is scanning and completing a payment in a real banking app
 
 ## Package Surface

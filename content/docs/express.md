@@ -70,4 +70,3 @@ Runnable in-repo examples:
 
 - standalone backend: `examples/express`
 - client + backend pairing: `examples/react-vite-ts`
-- public overview: [Example Apps](./example-apps.md)
