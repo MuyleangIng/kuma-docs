@@ -17,8 +17,8 @@ export const CONTACT_ITEMS: ContactItem[] = [
     label: "Support",
   },
   {
-    href: "https://t.me/example",
-    icon: "↗",
+    href: "https://t.me/MuyleangIng",
+    icon: "✈",
     label: "Telegram",
     external: true,
   },
