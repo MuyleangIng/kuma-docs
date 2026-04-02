@@ -101,7 +101,7 @@ export const DOC_GROUPS = [
   {
     id: "reference" as const,
     title: "Reference",
-    description: "Provider rules, sandbox notes, and operational details.",
+    description: "API reference with live playground, provider rules, sandbox notes, and operational details.",
   },
 ] satisfies Array<{ id: DocGroupId; title: string; description: string }>;
 
@@ -486,6 +486,30 @@ resources/views/
     fileName: "webcontainer-sandboxes.md",
     title: "WebContainer Sandboxes",
     description: "How to keep StackBlitz-style sandboxes aligned with the main integration contract.",
+    group: "reference",
+    status: "available",
+  },
+  {
+    slug: "api-checkout",
+    fileName: "api-checkout.md",
+    title: "QR Checkout",
+    description: "POST a signed multipart form to create a hosted KHQR checkout session. Includes live try-it playground.",
+    group: "reference",
+    status: "available",
+  },
+  {
+    slug: "api-webhooks",
+    fileName: "api-webhooks.md",
+    title: "Webhooks & Events",
+    description: "Receive payment outcomes via redirect URLs and window.postMessage events from the checkout page.",
+    group: "reference",
+    status: "available",
+  },
+  {
+    slug: "api-status",
+    fileName: "api-status.md",
+    title: "Check Transaction",
+    description: "POST md5 + pollToken to query live KHQR payment status. Includes live try-it playground.",
     group: "reference",
     status: "available",
   },

@@ -15,8 +15,13 @@ import {
   toGitHubTreeHref,
 } from "@/lib/docs";
 
+// These slugs have dedicated page routes that override this catch-all
+const DEDICATED_ROUTES = new Set(["api-checkout", "api-webhooks", "api-status"]);
+
 export async function generateStaticParams() {
-  return DOC_ENTRIES.map((entry) => ({ slug: entry.slug }));
+  return DOC_ENTRIES.filter((entry) => !DEDICATED_ROUTES.has(entry.slug)).map((entry) => ({
+    slug: entry.slug,
+  }));
 }
 
 export async function generateMetadata({
