@@ -970,9 +970,35 @@ html[data-theme="light"] .site-link-primary {
   color: var(--text-on-primary);
 }
 
-html[data-theme="light"] .docs-sidebar-item:hover,
+html[data-theme="light"] .docs-sidebar-item {
+  color: #161616;
+}
+
+html[data-theme="light"] .docs-sidebar-label {
+  color: #161616;
+}
+
+html[data-theme="light"] .docs-sidebar-title {
+  color: #161616;
+}
+
+html[data-theme="light"] .docs-sidebar-item:hover {
+  color: #161616;
+  background: rgba(0, 0, 0, 0.06);
+}
+
 html[data-theme="light"] .docs-sidebar-item.is-active {
-  background: var(--primary-soft);
+  color: #161616;
+  background: rgba(0, 0, 0, 0.08);
+  border-left-color: var(--primary);
+}
+
+html[data-theme="light"] .docs-toc-item {
+  color: #525252;
+}
+
+html[data-theme="light"] .docs-toc-item:hover {
+  color: #161616;
 }
 
 html[data-theme="light"] .docs-table-wrap,
