@@ -84,6 +84,7 @@ html[data-theme="light"] {
   --card: rgba(255, 252, 247, 0.9);
   --card-strong: rgba(255, 250, 243, 0.98);
   --text: #1f1b18;
+  --text-secondary: #655b53;
   --text-on-primary: #fffaf3;
   --muted: #655b53;
   --primary: #bf5a2b;
@@ -91,7 +92,7 @@ html[data-theme="light"] {
   --primary-soft: rgba(191, 90, 43, 0.12);
   --primary-shadow: rgba(191, 90, 43, 0.2);
   --primary-shadow-strong: rgba(191, 90, 43, 0.28);
-  --border: rgba(68, 45, 26, 0.12);
+  --border: rgba(68, 45, 26, 0.14);
   --surface-soft: rgba(255, 255, 255, 0.7);
   --surface-soft-strong: rgba(255, 255, 255, 0.88);
   --surface-glass: rgba(255, 252, 247, 0.82);
@@ -105,6 +106,19 @@ html[data-theme="light"] {
   --line: var(--border);
   --accent: var(--primary);
   --accent-soft: var(--primary-soft);
+  /* ── Code block colors for light mode (VS Code Light+) ── */
+  --code-bg: #f3f3f3;
+  --code-panel: #e8e8e8;
+  --code-line: rgba(0, 0, 0, 0.04);
+  --code-gutter: #999;
+  --code-plain: #1e1e1e;
+  --code-comment: #008000;
+  --code-keyword: #0000ff;
+  --code-string: #a31515;
+  --code-number: #098658;
+  --code-type: #267f99;
+  --code-fn: #795e26;
+  --code-operator: #000000;
 }
 
 * {
@@ -421,6 +435,138 @@ html[data-theme="light"] .mobile-bottom-nav-icon {
   background: var(--primary);
 }
 
+/* ── API Reference dropdown ── */
+
+.site-tab-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.site-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font: inherit;
+}
+
+.site-tab-chevron {
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+
+.site-tab-btn.is-open .site-tab-chevron {
+  transform: rotate(180deg);
+}
+
+.site-tab-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 200;
+  min-width: 260px;
+  background: var(--card-strong);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.1);
+  padding: 6px;
+  animation: tab-menu-in 0.14s ease both;
+}
+
+@keyframes tab-menu-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.site-tab-menu-section {
+  padding: 4px 0;
+}
+
+.site-tab-menu-label {
+  display: block;
+  padding: 4px 10px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.site-tab-menu-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 6px;
+}
+
+.site-tab-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.12s;
+}
+
+.site-tab-menu-item:hover:not(.is-disabled) {
+  background: var(--background-accent);
+}
+
+.site-tab-menu-item.is-disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.site-tab-menu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.site-tab-menu-item span:nth-child(2) {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.site-tab-menu-item-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.site-tab-menu-item-desc {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: monospace;
+}
+
+.site-tab-menu-item-arrow {
+  font-size: 12px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.site-tab-menu-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 100px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
 .theme-toggle {
   display: inline-flex;
   align-items: center;
@@ -622,6 +768,12 @@ html[data-theme="light"] .mobile-bottom-nav-icon {
   display: grid;
   grid-template-columns: 256px minmax(0, 1fr) 256px;
   min-height: calc(100vh - 88px);
+  transition: grid-template-columns 0.25s ease;
+}
+
+/* When the sidebar is collapsed, shrink its grid column to 0 */
+.docs-layout:has(.docs-sidebar[data-collapsed="true"]) {
+  grid-template-columns: 0 minmax(0, 1fr) 256px;
 }
 
 .docs-sidebar {
@@ -694,6 +846,17 @@ html[data-theme="light"] .mobile-bottom-nav-icon {
 
 .docs-sidebar-body {
   display: block;
+}
+
+/* Desktop: hamburger collapses the sidebar panel */
+.docs-sidebar {
+  transition: width 0.25s ease, opacity 0.2s ease;
+}
+
+.docs-sidebar[data-collapsed="true"] {
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ─── IBM sidebar search (hidden, IBM puts search in topbar) ─── */
@@ -1234,7 +1397,7 @@ html[data-theme="light"] .docs-article code {
 .docs-code-block {
   position: relative;
   overflow: hidden;
-  border: 1px solid #2d2d2d;
+  border: 1px solid var(--border);
   background: var(--code-bg);
   color: var(--code-plain);
   font-size: 13.5px;
@@ -1320,9 +1483,6 @@ html[data-theme="light"] .docs-article code {
   min-height: 1.6em;
 }
 
-.docs-code-line + .docs-code-line {
-  /* no divider between lines in VS Code style */
-}
 
 .docs-code-gutter,
 .docs-code-content {

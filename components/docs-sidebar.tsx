@@ -25,33 +25,59 @@ export function DocsSidebar({
   currentSlug?: string;
   groups: SidebarGroup[];
 }) {
-  const [menuOpen, setMenuOpen] = useState(false);
+  // mobile accordion open/closed
+  const [mobileOpen, setMobileOpen] = useState(false);
+  // desktop sidebar collapsed/expanded (false = visible by default)
+  const [collapsed, setCollapsed] = useState(false);
 
+  // Close mobile menu on navigation
   useEffect(() => {
-    setMenuOpen(false);
+    setMobileOpen(false);
   }, [currentSlug]);
 
+  // Header hamburger button toggles:
+  //   - on mobile  → accordion open/close
+  //   - on desktop → sidebar collapse/expand
+  useEffect(() => {
+    function onToggle() {
+      if (window.innerWidth <= 900) {
+        setMobileOpen((o) => !o);
+      } else {
+        setCollapsed((c) => !c);
+      }
+    }
+    window.addEventListener("koma:toggle-sidebar", onToggle);
+    return () => window.removeEventListener("koma:toggle-sidebar", onToggle);
+  }, []);
+
   return (
-    <aside className="docs-sidebar">
+    <aside
+      className="docs-sidebar"
+      data-collapsed={collapsed ? "true" : undefined}
+    >
+      {/* Mobile accordion trigger */}
       <button
         aria-controls="docs-sidebar-body"
-        aria-expanded={menuOpen}
+        aria-expanded={mobileOpen}
         className="docs-sidebar-trigger"
-        onClick={() => setMenuOpen((open) => !open)}
         type="button"
+        onClick={() => setMobileOpen((o) => !o)}
       >
         <span className="docs-sidebar-trigger-copy">
           <span className="docs-sidebar-trigger-label">Documentation</span>
         </span>
         <span
           aria-hidden="true"
-          className={`docs-sidebar-trigger-icon${menuOpen ? " is-open" : ""}`}
+          className={`docs-sidebar-trigger-icon${mobileOpen ? " is-open" : ""}`}
         >
           ▾
         </span>
       </button>
 
-      <div className={`docs-sidebar-body${menuOpen ? " is-open" : ""}`} id="docs-sidebar-body">
+      <div
+        className={`docs-sidebar-body${mobileOpen ? " is-open" : ""}`}
+        id="docs-sidebar-body"
+      >
         <p className="docs-sidebar-title">Documentation</p>
 
         {groups.map((group) => (
@@ -63,7 +89,7 @@ export function DocsSidebar({
                   className={`docs-sidebar-item${currentSlug === entry.slug ? " is-active" : ""}`}
                   href={`/docs/${entry.slug}`}
                   key={entry.slug}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => setMobileOpen(false)}
                 >
                   <span className="docs-sidebar-item-title">{entry.title}</span>
                 </Link>

@@ -207,7 +207,7 @@ export function MobileBottomNav() {
                   <div className="mobile-sheet-header">
                     <p className="mobile-sheet-eyebrow">Contact</p>
                     <h2 className="mobile-sheet-title" id="mobile-contact-title">
-                      Talk to the Kuma team
+                      Talk to the Koma KHQR team
                     </h2>
                     <p className="mobile-sheet-copy">
                       Choose the quickest way to reach us without leaving the docs flow.
@@ -254,7 +254,7 @@ export function MobileBottomNav() {
                     </h2>
                     <p className="mobile-sheet-copy">
                       You are about to open {sheet.item.label}. Continue when you are ready to leave
-                      Kuma Docs.
+                      Koma KHQR.
                     </p>
                   </div>
 

@@ -7,8 +7,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Kuma Docs",
-    template: "%s | Kuma Docs",
+    default: "Koma KHQR Docs",
+    template: "%s | Koma KHQR Docs",
   },
   description: "Standalone documentation website for the koma-khqr package.",
 };

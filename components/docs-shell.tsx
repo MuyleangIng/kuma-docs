@@ -2,7 +2,9 @@ import type { ReactNode } from "react";
 
 import Link from "next/link";
 
+import { ApiReferenceDropdown } from "@/components/api-reference-dropdown";
 import { DocsSidebar } from "@/components/docs-sidebar";
+import { MobileMenuBtn } from "@/components/mobile-menu-btn";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { getDocGroups, type TocItem } from "@/lib/docs";
 
@@ -23,15 +25,9 @@ export function DocsShell({
       <header className="site-header">
         <div className="site-topbar">
           <div className="site-topbar-left">
-            <button className="site-menu-btn" aria-label="Menu" type="button">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                <rect x="2" y="5" width="16" height="1.5" />
-                <rect x="2" y="9.25" width="16" height="1.5" />
-                <rect x="2" y="13.5" width="16" height="1.5" />
-              </svg>
-            </button>
+            <MobileMenuBtn />
             <Link className="site-brand" href="/">
-              <span className="site-brand-mark">Kuma Docs</span>
+              <span className="site-brand-mark">Koma KHQR</span>
             </Link>
           </div>
 
@@ -69,14 +65,7 @@ export function DocsShell({
           <Link className="site-tab is-active" href="/docs">
             Documentation
           </Link>
-          <a
-            className="site-tab"
-            href="https://www.npmjs.com/package/koma-khqr"
-            rel="noreferrer"
-            target="_blank"
-          >
-            API Reference
-          </a>
+          <ApiReferenceDropdown />
           <a
             className="site-tab"
             href="https://github.com/MuyleangIng/kuma-docs"
