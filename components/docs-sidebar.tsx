@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import Link from "next/link";
 
-type SidebarEntry = {
+export type DocsSidebarEntry = {
   slug: string;
   title: string;
   description: string;
@@ -12,92 +10,91 @@ type SidebarEntry = {
   runtime?: string;
 };
 
-type SidebarGroup = {
+export type DocsSidebarGroup = {
   id: string;
   title: string;
-  entries: SidebarEntry[];
+  entries: DocsSidebarEntry[];
 };
 
 export function DocsSidebar({
   currentSlug,
   groups,
+  isMobileOpen,
+  isDesktopCollapsed,
+  onCloseMobile,
 }: {
   currentSlug?: string;
-  groups: SidebarGroup[];
+  groups: DocsSidebarGroup[];
+  isMobileOpen: boolean;
+  isDesktopCollapsed: boolean;
+  onCloseMobile: () => void;
 }) {
-  // mobile accordion open/closed
-  const [mobileOpen, setMobileOpen] = useState(false);
-  // desktop sidebar collapsed/expanded (false = visible by default)
-  const [collapsed, setCollapsed] = useState(false);
-
-  // Close mobile menu on navigation
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [currentSlug]);
-
-  // Header hamburger button toggles:
-  //   - on mobile  → accordion open/close
-  //   - on desktop → sidebar collapse/expand
-  useEffect(() => {
-    function onToggle() {
-      if (window.innerWidth <= 900) {
-        setMobileOpen((o) => !o);
-      } else {
-        setCollapsed((c) => !c);
-      }
-    }
-    window.addEventListener("koma:toggle-sidebar", onToggle);
-    return () => window.removeEventListener("koma:toggle-sidebar", onToggle);
-  }, []);
-
   return (
-    <aside
-      className="docs-sidebar"
-      data-collapsed={collapsed ? "true" : undefined}
-    >
-      {/* Mobile accordion trigger */}
-      <button
-        aria-controls="docs-sidebar-body"
-        aria-expanded={mobileOpen}
-        className="docs-sidebar-trigger"
-        type="button"
-        onClick={() => setMobileOpen((o) => !o)}
-      >
-        <span className="docs-sidebar-trigger-copy">
-          <span className="docs-sidebar-trigger-label">Documentation</span>
-        </span>
-        <span
-          aria-hidden="true"
-          className={`docs-sidebar-trigger-icon${mobileOpen ? " is-open" : ""}`}
-        >
-          ▾
-        </span>
-      </button>
+    <>
+      {isMobileOpen ? (
+        <button
+          aria-label="Close navigation"
+          className="docs-sidebar-backdrop"
+          type="button"
+          onClick={onCloseMobile}
+        />
+      ) : null}
 
-      <div
-        className={`docs-sidebar-body${mobileOpen ? " is-open" : ""}`}
-        id="docs-sidebar-body"
+      <aside
+        aria-label="Documentation navigation"
+        className={`docs-sidebar${isMobileOpen ? " is-mobile-open" : ""}`}
+        data-collapsed={isDesktopCollapsed ? "true" : undefined}
+        id="docs-sidebar"
       >
-        <p className="docs-sidebar-title">Documentation</p>
+        <div className="docs-sidebar-body">
+          <p className="docs-sidebar-title">Documentation</p>
 
-        {groups.map((group) => (
-          <section className="docs-sidebar-group" key={group.id}>
-            <h2 className="docs-sidebar-label">{group.title}</h2>
-            <div className="docs-sidebar-list">
-              {group.entries.map((entry) => (
-                <Link
-                  className={`docs-sidebar-item${currentSlug === entry.slug ? " is-active" : ""}`}
-                  href={`/docs/${entry.slug}`}
-                  key={entry.slug}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  <span className="docs-sidebar-item-title">{entry.title}</span>
-                </Link>
-              ))}
+          {groups.map((group) => (
+            <section className="docs-sidebar-group" key={group.id}>
+              <h2 className="docs-sidebar-label">{group.title}</h2>
+              <div className="docs-sidebar-list">
+                {group.entries.map((entry) => (
+                  <Link
+                    className={`docs-sidebar-item${currentSlug === entry.slug ? " is-active" : ""}`}
+                    href={`/docs/${entry.slug}`}
+                    key={entry.slug}
+                    onClick={onCloseMobile}
+                  >
+                    <span className="docs-sidebar-item-title">{entry.title}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          ))}
+
+          <div className="docs-sidebar-mobile-links">
+            <span className="docs-sidebar-mobile-links-label">Quick links</span>
+            <div className="docs-sidebar-mobile-links-grid">
+              <Link className="docs-sidebar-mobile-link" href="/docs" onClick={onCloseMobile}>
+                Docs home
+              </Link>
+              <a
+                className="docs-sidebar-mobile-link"
+                href="https://github.com/MuyleangIng/kuma-docs"
+                rel="noreferrer"
+                target="_blank"
+                onClick={onCloseMobile}
+              >
+                GitHub ↗
+              </a>
+              <a
+                className="docs-sidebar-mobile-link"
+                href="https://www.npmjs.com/package/koma-khqr"
+                rel="noreferrer"
+                target="_blank"
+                onClick={onCloseMobile}
+              >
+                npm package ↗
+              </a>
             </div>
-          </section>
-        ))}
-      </div>
-    </aside>
+          </div>
+        </div>
+      </aside>
+    </>
   );
 }

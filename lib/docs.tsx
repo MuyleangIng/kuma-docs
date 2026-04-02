@@ -40,6 +40,14 @@ export interface TocItem {
   text: string;
 }
 
+export interface DocsSearchEntry {
+  href: string;
+  title: string;
+  description: string;
+  group: string;
+  body: string;
+}
+
 type CodeTokenKind =
   | "plain"
   | "comment"
@@ -355,6 +363,35 @@ resources/views/
   },
 ];
 
+const STATIC_SEARCH_ENTRIES: DocsSearchEntry[] = [
+  {
+    href: "/docs/api-checkout",
+    title: "QR Payment Checkout",
+    description:
+      "Generate secure KHQR checkout sessions with a single signed POST. Interactive playground included.",
+    group: "Reference",
+    body:
+      "qr payment checkout overview how it works endpoint request parameters hash generation responses security try it api payment checkout merchant amount hash bakong khqr",
+  },
+  {
+    href: "/docs/api-status",
+    title: "Check Transaction",
+    description: "Query real-time KHQR payment status using the MD5 hash and poll token.",
+    group: "Reference",
+    body:
+      "check transaction overview endpoint request body response codes session limits best practices sdk usage api testing md5 poll token pending success bakong verification",
+  },
+  {
+    href: "/docs/api-webhooks",
+    title: "Webhooks & Events",
+    description:
+      "Receive payment outcomes via browser redirects and real-time window.postMessage events from the hosted KHQR checkout page.",
+    group: "Reference",
+    body:
+      "webhooks events overview redirect urls payment flow postmessage event payload listening best practices continue success return url success failed expired closed browser messages",
+  },
+];
+
 const DOC_ENTRY_BY_SLUG = new Map(DOC_ENTRIES.map((entry) => [entry.slug, entry]));
 const SCRIPT_KEYWORDS = new Set([
   "as",
@@ -450,6 +487,38 @@ export function getDocGroups(): DocGroup[] {
     ...group,
     entries: DOC_ENTRIES.filter((entry) => entry.group === group.id),
   }));
+}
+
+export async function getDocsSearchEntries(): Promise<DocsSearchEntry[]> {
+  const docEntries = await Promise.all(
+    DOC_ENTRIES.map(async (entry) => {
+      let source = "";
+
+      try {
+        source = await fs.readFile(path.join(DOCS_DIR, entry.fileName), "utf8");
+      } catch {
+        source = "";
+      }
+
+      const { blocks, toc } = source
+        ? parseMarkdown(source, `docs/${entry.fileName}`)
+        : { blocks: [] as MarkdownBlock[], toc: [] as TocItem[] };
+      const headline =
+        blocks[0]?.type === "heading" && blocks[0].level === 1 ? blocks[0].text : entry.title;
+
+      return {
+        href: `/docs/${entry.slug}`,
+        title: headline,
+        description: entry.description,
+        group: getDocGroup(entry.group)?.title ?? entry.group,
+        body: [entry.entrypoint, entry.runtime, ...toc.map((item) => item.text), extractBlockText(blocks)]
+          .filter(Boolean)
+          .join(" "),
+      } satisfies DocsSearchEntry;
+    }),
+  );
+
+  return [...docEntries, ...STATIC_SEARCH_ENTRIES];
 }
 
 export function getDocGroup(groupId: DocGroupId) {
@@ -736,6 +805,27 @@ function createHeadingId(text: string, counts: Map<string, number>) {
   counts.set(base, count + 1);
 
   return count === 0 ? base : `${base}-${count + 1}`;
+}
+
+function extractBlockText(blocks: MarkdownBlock[]) {
+  return blocks
+    .map((block) => {
+      switch (block.type) {
+        case "heading":
+          return block.text;
+        case "paragraph":
+          return block.text;
+        case "unordered-list":
+          return block.items.map((item) => item.text).join(" ");
+        case "ordered-list":
+          return block.items.join(" ");
+        case "table":
+          return [block.headers.join(" "), ...block.rows.map((row) => row.join(" "))].join(" ");
+        case "code":
+          return block.code;
+      }
+    })
+    .join(" ");
 }
 
 function isTableStart(lines: string[], index: number) {
