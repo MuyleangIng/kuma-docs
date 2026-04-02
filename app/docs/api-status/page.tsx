@@ -208,9 +208,8 @@ export default function ApiStatusPage() {
 
         <h2 id="sdk-usage">SDK usage</h2>
         <div className="api-ref-callout api-ref-callout-info">
-          <strong>This docs app now uses the same Next.js SDK status route as the real examples.</strong>{" "}
-          The tester below calls <code>/api/koma-status</code>, which maps to{" "}
-          <code>createKomaNext().status(req)</code>.
+          The tester below proxies the status check through <code>/api/status-proxy</code>{" "}
+          to <code>https://koma.khqr.site/api/payment/status</code>.
         </div>
         <ul>
           <li>The SDK examples in this repo already wrap provider polling inside your app backend.</li>
@@ -221,7 +220,7 @@ export default function ApiStatusPage() {
         <h2 id="api-testing">Test API</h2>
         <p>
           Paste the <code>md5</code> and <code>pollToken</code> values from your checkout response.
-          This tester sends the request through the local <code>/api/koma-status</code> SDK route.
+          This tester proxies through <code>/api/status-proxy</code> to the live Koma API.
         </p>
         <ApiPlaygroundStatus />
       </article>

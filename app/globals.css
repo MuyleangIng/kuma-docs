@@ -843,7 +843,7 @@ html[data-theme="light"] .mobile-bottom-nav-icon {
   font-size: clamp(38px, 6vw, 64px);
   line-height: 1.02;
   letter-spacing: -0.04em;
-  max-width: 11ch;
+  max-width: 45ch;
 }
 
 .docs-lead {
@@ -2783,6 +2783,252 @@ html[data-theme="light"] .docs-article code {
   animation: pg-spin 1s linear infinite;
 }
 
+.api-pg-khqr-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  min-height: 180px;
+}
+
+/* ── JSON Inspector (Request / Response tabs) ── */
+.api-pg-inspector {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  /* must NOT be overflow:hidden — that clips the resize handle */
+  overflow: visible;
+  /* keep rounded corners on the tabs row */
+}
+
+/* The body sits directly after the tabs and gets its own border-radius */
+.api-pg-inspector-body {
+  border-radius: 0 0 8px 8px;
+}
+
+.api-pg-inspector-tabs {
+  display: flex;
+  background: var(--code-bg);
+  border-bottom: 1px solid var(--border);
+  border-radius: 8px 8px 0 0;
+  overflow: hidden;
+}
+
+.api-pg-inspector-tab {
+  flex: 1;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.api-pg-inspector-tab:hover { color: var(--text); }
+
+.api-pg-inspector-tab.active {
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.api-pg-inspector-copy {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  align-self: center;
+  margin-right: 8px;
+  transition: color 0.12s, border-color 0.12s, background 0.12s;
+}
+
+.api-pg-inspector-copy:hover {
+  color: var(--text);
+  border-color: var(--text-secondary);
+}
+
+.api-pg-inspector-copy svg {
+  flex-shrink: 0;
+}
+
+.api-pg-inspector-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 100px;
+  line-height: 1.5;
+}
+
+.api-pg-inspector-badge.ok  { background: rgba(74,222,128,.15); color: #4ade80; }
+.api-pg-inspector-badge.err { background: rgba(248,113,113,.15); color: #f87171; }
+
+.api-pg-inspector-body {
+  background: var(--code-bg);
+  /* fixed height so content scrolls instead of expanding the box */
+  height: 260px;
+  min-height: 100px;
+  max-height: 600px;
+  /* overflow must be set for resize to work and for scroll to engage */
+  overflow: auto;
+  /* resize handle — browser draws it in the bottom-right corner */
+  resize: vertical;
+  /* prevent the flex parent from squishing or stretching this element */
+  flex-shrink: 0;
+  /* scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.api-pg-inspector-body::-webkit-scrollbar       { width: 6px; height: 6px; }
+.api-pg-inspector-body::-webkit-scrollbar-track { background: transparent; }
+.api-pg-inspector-body::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+.api-pg-inspector-body::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+.api-pg-inspector-pre {
+  margin: 0;
+  padding: 14px 16px;
+  font-family: monospace;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: var(--code-plain);
+  white-space: pre;
+}
+
+.api-pg-inspector-pre code {
+  font-family: inherit;
+  background: none;
+  padding: 0;
+}
+
+/* ── JSON viewer ── */
+.api-pg-json-viewer {
+  padding: 14px 16px;
+  font-family: monospace;
+  font-size: 11.5px;
+  line-height: 1.8;
+  color: var(--code-plain);
+  /* prevent long strings from breaking out of the scrollable container */
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  /* do NOT let this div grow the parent — let the parent scroll instead */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.json-key   { color: var(--primary); }
+.json-str   { color: #7dd3ab; }
+.json-num   { color: #79c0ff; }
+.json-bool  { color: #f8a66b; }
+.json-null  { color: #9ca3af; font-style: italic; }
+.json-punct { color: var(--text-secondary); }
+.json-indent { display: block; }
+
+/* ── Custom checkout button ── */
+.api-pg-checkout-btn-wrap {
+  padding: 16px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.api-pg-checkout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s, opacity 0.15s;
+}
+
+.api-pg-checkout-btn:hover:not(:disabled) {
+  background: var(--primary-dark, #c2410c);
+}
+
+.api-pg-checkout-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.api-pg-checkout-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.api-pg-checkout-btn-secondary {
+  background: var(--code-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.api-pg-checkout-btn-secondary:hover:not(:disabled) {
+  background: var(--border);
+}
+
+.api-pg-checkout-spinner {
+  width: 16px;
+  height: 16px;
+  animation: pg-spin 0.9s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── QR display panel ── */
+.api-pg-qr-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px 16px;
+  gap: 12px;
+}
+
+.api-pg-qr-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+  text-align: center;
+}
+
+.api-pg-qr-img {
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.api-pg-qr-txn {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
 .api-pg-iframe-wrap {
   flex: 1;
   overflow: hidden;
@@ -2825,6 +3071,111 @@ html[data-theme="light"] .docs-article code {
 
 .api-pg-response-err-body .api-pg-response-pre {
   color: #f87171;
+}
+
+/* ── Request payload preview ── */
+.api-pg-request-preview {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.api-pg-request-preview-header {
+  padding: 8px 14px;
+  background: var(--code-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+
+.api-pg-request-preview-body {
+  padding: 8px 0;
+  background: var(--code-bg);
+}
+
+.api-pg-payload-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 4px 14px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.api-pg-payload-key {
+  font-family: monospace;
+  color: var(--primary);
+  min-width: 160px;
+  flex-shrink: 0;
+}
+
+.api-pg-payload-val {
+  font-family: monospace;
+  color: var(--code-plain);
+  word-break: break-all;
+}
+
+.api-pg-payload-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 6px 0;
+}
+
+/* ── Response tab toggle ── */
+.api-pg-response-tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.api-pg-tab-btn {
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.api-pg-tab-btn:hover {
+  color: var(--text);
+}
+
+.api-pg-tab-btn.active {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ── HTML source code view ── */
+.api-pg-response-code-wrap {
+  flex: 1;
+  overflow: auto;
+  background: var(--code-bg);
+}
+
+.api-pg-response-html-pre {
+  margin: 0;
+  padding: 16px;
+  font-family: monospace;
+  font-size: 11.5px;
+  line-height: 1.7;
+  color: var(--code-plain);
+  white-space: pre;
+  tab-size: 2;
+}
+
+.api-pg-response-html-pre code {
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
+  padding: 0;
+  border-radius: 0;
 }
 
 .api-pg-preview-json {

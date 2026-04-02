@@ -61,7 +61,7 @@ export function ApiPlaygroundStatus() {
     setRawError("");
     setHttpStatus(null);
     try {
-      const res = await fetch("/api/koma-status", {
+      const res = await fetch("/api/status-proxy", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ md5: fields.md5, pollToken: fields.pollToken }),
@@ -87,7 +87,7 @@ export function ApiPlaygroundStatus() {
     <div className="api-pg">
       <div className="api-pg-endpoint">
         <span className="api-pg-method">POST</span>
-        <span className="api-pg-path">/api/koma-status</span>
+        <span className="api-pg-path">/api/payment/status</span>
         <span className="api-pg-ct">application/json</span>
       </div>
 
@@ -115,7 +115,7 @@ export function ApiPlaygroundStatus() {
                 onChange={(e) => setField("pollToken", e.target.value)}
               />
               <span className="api-pg-hint">
-                This tester sends through the local Next.js SDK status route.
+                Values are available in the checkout response from the QR Checkout playground.
               </span>
             </label>
           </fieldset>

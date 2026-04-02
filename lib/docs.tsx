@@ -330,22 +330,6 @@ resources/views/
     cancelled.blade.php`,
   },
   {
-    slug: "pi-integration",
-    fileName: "pi-integration.md",
-    title: "PI Integration Reference",
-    description: "Provider request shape, signing rules, and operational notes.",
-    group: "reference",
-    status: "available",
-  },
-  {
-    slug: "webcontainer-sandboxes",
-    fileName: "webcontainer-sandboxes.md",
-    title: "WebContainer Sandboxes",
-    description: "How to keep StackBlitz-style sandboxes aligned with the main integration contract.",
-    group: "reference",
-    status: "available",
-  },
-  {
     slug: "api-checkout",
     fileName: "api-checkout.md",
     title: "QR Checkout",
@@ -504,7 +488,12 @@ export async function getParsedDoc(slug: string) {
     return null;
   }
 
-  const source = await fs.readFile(path.join(DOCS_DIR, entry.fileName), "utf8");
+  let source: string;
+  try {
+    source = await fs.readFile(path.join(DOCS_DIR, entry.fileName), "utf8");
+  } catch {
+    return null;
+  }
   const { blocks, toc } = parseMarkdown(source, `docs/${entry.fileName}`);
   const headline =
     blocks[0]?.type === "heading" && blocks[0].level === 1 ? blocks[0].text : entry.title;

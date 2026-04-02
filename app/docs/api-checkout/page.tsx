@@ -239,9 +239,9 @@ export default function ApiCheckoutPage() {
           <p className="docs-section-label">Interactive</p>
           <h2>Try it — live KHQR checkout</h2>
           <p className="docs-page-copy" style={{ marginTop: 8 }}>
-            Enter your credentials and payment fields. The hash is computed in-browser via the Web
-            Crypto API so your Secret Key never leaves your device. Click Send to see the real
-            checkout page rendered inline.
+            Enter your credentials and payment fields. The hash is generated server-side using the
+            same SDK logic as production — amount normalisation, HMAC-SHA512, base64 encoding.
+            The response is shown as HTML source — switch to Preview to render it inline.
           </p>
         </div>
         <ApiPlaygroundCheckout />
